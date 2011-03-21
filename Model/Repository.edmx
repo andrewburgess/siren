@@ -12,6 +12,8 @@
           <EntitySet Name="Artists" EntityType="DataModel.Store.Artists" store:Type="Tables" />
           <EntitySet Name="Genres" EntityType="DataModel.Store.Genres" store:Type="Tables" />
           <EntitySet Name="MediaFiles" EntityType="DataModel.Store.MediaFiles" store:Type="Tables" />
+          <EntitySet Name="Plays" EntityType="DataModel.Store.Plays" store:Type="Tables" />
+          <EntitySet Name="Repositories" EntityType="DataModel.Store.Repositories" store:Type="Tables" />
           <EntitySet Name="SimilarAlbums" EntityType="DataModel.Store.SimilarAlbums" store:Type="Tables" />
           <EntitySet Name="SimilarArtists" EntityType="DataModel.Store.SimilarArtists" store:Type="Tables" />
           <EntitySet Name="SimilarTracks" EntityType="DataModel.Store.SimilarTracks" store:Type="Tables" />
@@ -56,6 +58,10 @@
           <AssociationSet Name="FK_TrackTrackGenres" Association="DataModel.Store.FK_TrackTrackGenres">
             <End Role="Tracks" EntitySet="Tracks" />
             <End Role="TrackGenres" EntitySet="TrackGenres" />
+          </AssociationSet>
+          <AssociationSet Name="TrackPlays" Association="DataModel.Store.TrackPlays">
+            <End Role="Tracks" EntitySet="Tracks" />
+            <End Role="Plays" EntitySet="Plays" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AlbumGenres">
@@ -119,6 +125,24 @@
           <Property Name="FileType" Type="nvarchar" Nullable="false" />
           <Property Name="Tracks_Id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Plays">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Track_Id" Type="int" />
+          <Property Name="DatePlayed" Type="datetime" />
+          <Property Name="Percentage" Type="float" />
+        </EntityType>
+        <EntityType Name="Repositories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Location" Type="nvarchar" MaxLength="255" />
+          <Property Name="LastScanned" Type="datetime" />
+          <Property Name="DateAdded" Type="datetime" />
+        </EntityType>
         <EntityType Name="SimilarAlbums">
           <Key>
             <PropertyRef Name="Album1" />
@@ -177,6 +201,8 @@
           <Property Name="LastFMListeners" Type="bigint" />
           <Property Name="LastFMPlays" Type="bigint" />
           <Property Name="Description" Type="ntext" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="Score" Type="int" />
         </EntityType>
         <Association Name="FK_AlbumAlbumGenres">
           <End Role="Albums" Type="DataModel.Store.Albums" Multiplicity="1" />
@@ -298,6 +324,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="TrackPlays">
+          <End Role="Tracks" Type="DataModel.Store.Tracks" Multiplicity="0..1" />
+          <End Role="Plays" Type="DataModel.Store.Plays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tracks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Plays">
+              <PropertyRef Name="Track_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -354,6 +392,12 @@
             <End Role="Tracks" EntitySet="Tracks" />
             <End Role="TrackGenres" EntitySet="TrackGenres" />
           </AssociationSet>
+          <EntitySet Name="Plays" EntityType="DataModel.Play" />
+          <AssociationSet Name="TrackPlays" Association="DataModel.TrackPlays">
+            <End Role="Track" EntitySet="Tracks" />
+            <End Role="Play" EntitySet="Plays" />
+          </AssociationSet>
+          <EntitySet Name="MediaRepositories" EntityType="DataModel.MediaRepository" />
         </EntityContainer>
         <EntityType Name="AlbumGenre">
           <Key>
@@ -494,6 +538,9 @@
           <Property Type="Int64" Name="LastFMListeners" />
           <Property Type="Int64" Name="LastFMPlays" />
           <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Plays" Relationship="DataModel.TrackPlays" FromRole="Track" ToRole="Play" />
+          <Property Type="Int32" Name="Rating" />
+          <Property Type="Int32" Name="Score" />
         </EntityType>
         <Association Name="FK_AlbumAlbumGenres">
           <End Role="Albums" Type="DataModel.Album" Multiplicity="1" />
@@ -615,6 +662,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Play">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Track_Id" />
+          <Property Type="DateTime" Name="DatePlayed" />
+          <NavigationProperty Name="Track" Relationship="DataModel.TrackPlays" FromRole="Play" ToRole="Track" />
+          <Property Type="Double" Name="Percentage" />
+        </EntityType>
+        <Association Name="TrackPlays">
+          <End Type="DataModel.Track" Role="Track" Multiplicity="0..1" />
+          <End Type="DataModel.Play" Role="Play" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Track">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Play">
+              <PropertyRef Name="Track_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MediaRepository">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Location" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastScanned" />
+          <Property Type="DateTime" Name="DateAdded" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -683,7 +761,9 @@
             <ScalarProperty Name="Score" ColumnName="Score" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Tracks"><EntityTypeMapping TypeName="DataModel.Track"><MappingFragment StoreEntitySet="Tracks">
-            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="LastFMPlays" ColumnName="LastFMPlays" />
                 <ScalarProperty Name="LastFMListeners" ColumnName="LastFMListeners" />
                 <ScalarProperty Name="MBID" ColumnName="MBID" />
@@ -702,6 +782,26 @@
             <ScalarProperty Name="Artist_Id" ColumnName="Artist_Id" />
             <ScalarProperty Name="Album_Id" ColumnName="Album_Id" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Plays">
+            <EntityTypeMapping TypeName="DataModel.Play">
+              <MappingFragment StoreEntitySet="Plays">
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="DatePlayed" ColumnName="DatePlayed" />
+                <ScalarProperty Name="Track_Id" ColumnName="Track_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaRepositories">
+            <EntityTypeMapping TypeName="DataModel.MediaRepository">
+              <MappingFragment StoreEntitySet="Repositories">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="LastScanned" ColumnName="LastScanned" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -745,10 +845,8 @@
           <ConnectorPoint PointX="6" PointY="5.75" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_AlbumTrack" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="5.65625" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="5.6562499999999991" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="5.65625" />
-          <ConnectorPoint PointX="8.25" PointY="5.65625" />
+          <ConnectorPoint PointX="4.5" PointY="8.1797900390625" />
+          <ConnectorPoint PointX="8.25" PointY="8.1797900390625" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_PrimaryArtistAlbum" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="6.7401432291666667" />
@@ -765,11 +863,8 @@
           <ConnectorPoint PointX="3" PointY="3.1825716145833329" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_ArtistTrack" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.7302864583333335" />
-          <ConnectorPoint PointX="2.625" PointY="8.1052864583333335" />
-          <ConnectorPoint PointX="2.625" PointY="9.3552050781250031" />
-          <ConnectorPoint PointX="7.875" PointY="9.3552050781250031" />
-          <ConnectorPoint PointX="8.25" PointY="8.9802050781250031" />
+          <ConnectorPoint PointX="2.25" PointY="8.6605436197916656" />
+          <ConnectorPoint PointX="8.25" PointY="8.6605436197916656" />
         </AssociationConnector>
         <AssociationConnector Association="DataModel.FK_GenreTrackGenres" ManuallyRouted="false">
           <ConnectorPoint PointX="1.5" PointY="2.75" />
@@ -789,6 +884,12 @@
           <ConnectorPoint PointX="10.208333333333334" PointY="3.2138191145833321" />
           <ConnectorPoint PointX="10.5" PointY="3.2138191145833321" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="DataModel.Play" Width="1.5" PointX="10.5" PointY="9.375" Height="1.7879850260416745" />
+        <AssociationConnector Association="DataModel.TrackPlays" >
+          <ConnectorPoint PointX="9.75" PointY="9.6583561197916659" />
+          <ConnectorPoint PointX="10.5" PointY="9.6583561197916659" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DataModel.MediaRepository" Width="1.5" PointX="5.375" PointY="8.75" Height="1.7879850260416674" />
       </Diagram>
     </Diagrams>
   </Designer>

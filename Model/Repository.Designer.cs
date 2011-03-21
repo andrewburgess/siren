@@ -28,6 +28,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("DataModel", "FK_GenreTrackGenres", "Genres", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Model.Genre), "TrackGenres", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Model.TrackGenre), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_MediaFileTrack", "Tracks", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Model.Track), "MediaFiles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Model.MediaFile), true)]
 [assembly: EdmRelationshipAttribute("DataModel", "FK_TrackTrackGenres", "Tracks", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Model.Track), "TrackGenres", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Model.TrackGenre), true)]
+[assembly: EdmRelationshipAttribute("DataModel", "TrackPlays", "Track", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Model.Track), "Play", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Model.Play), true)]
 
 #endregion
 
@@ -254,6 +255,38 @@ namespace Model
             }
         }
         private ObjectSet<Track> _Tracks;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Play> Plays
+        {
+            get
+            {
+                if ((_Plays == null))
+                {
+                    _Plays = base.CreateObjectSet<Play>("Plays");
+                }
+                return _Plays;
+            }
+        }
+        private ObjectSet<Play> _Plays;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<MediaRepository> MediaRepositories
+        {
+            get
+            {
+                if ((_MediaRepositories == null))
+                {
+                    _MediaRepositories = base.CreateObjectSet<MediaRepository>("MediaRepositories");
+                }
+                return _MediaRepositories;
+            }
+        }
+        private ObjectSet<MediaRepository> _MediaRepositories;
 
         #endregion
         #region AddTo Methods
@@ -344,6 +377,22 @@ namespace Model
         public void AddToTracks(Track track)
         {
             base.AddObject("Tracks", track);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Plays EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPlays(Play play)
+        {
+            base.AddObject("Plays", play);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the MediaRepositories EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToMediaRepositories(MediaRepository mediaRepository)
+        {
+            base.AddObject("MediaRepositories", mediaRepository);
         }
 
         #endregion
@@ -1693,6 +1742,301 @@ namespace Model
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DataModel", Name="MediaRepository")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class MediaRepository : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new MediaRepository object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static MediaRepository CreateMediaRepository(global::System.Int32 id)
+        {
+            MediaRepository mediaRepository = new MediaRepository();
+            mediaRepository.Id = id;
+            return mediaRepository;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Location
+        {
+            get
+            {
+                return _Location;
+            }
+            set
+            {
+                OnLocationChanging(value);
+                ReportPropertyChanging("Location");
+                _Location = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Location");
+                OnLocationChanged();
+            }
+        }
+        private global::System.String _Location;
+        partial void OnLocationChanging(global::System.String value);
+        partial void OnLocationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastScanned
+        {
+            get
+            {
+                return _LastScanned;
+            }
+            set
+            {
+                OnLastScannedChanging(value);
+                ReportPropertyChanging("LastScanned");
+                _LastScanned = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastScanned");
+                OnLastScannedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastScanned;
+        partial void OnLastScannedChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastScannedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> DateAdded
+        {
+            get
+            {
+                return _DateAdded;
+            }
+            set
+            {
+                OnDateAddedChanging(value);
+                ReportPropertyChanging("DateAdded");
+                _DateAdded = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateAdded");
+                OnDateAddedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _DateAdded;
+        partial void OnDateAddedChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateAddedChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DataModel", Name="Play")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Play : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Play object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static Play CreatePlay(global::System.Int32 id)
+        {
+            Play play = new Play();
+            play.Id = id;
+            return play;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Track_Id
+        {
+            get
+            {
+                return _Track_Id;
+            }
+            set
+            {
+                OnTrack_IdChanging(value);
+                ReportPropertyChanging("Track_Id");
+                _Track_Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Track_Id");
+                OnTrack_IdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Track_Id;
+        partial void OnTrack_IdChanging(Nullable<global::System.Int32> value);
+        partial void OnTrack_IdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> DatePlayed
+        {
+            get
+            {
+                return _DatePlayed;
+            }
+            set
+            {
+                OnDatePlayedChanging(value);
+                ReportPropertyChanging("DatePlayed");
+                _DatePlayed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DatePlayed");
+                OnDatePlayedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _DatePlayed;
+        partial void OnDatePlayedChanging(Nullable<global::System.DateTime> value);
+        partial void OnDatePlayedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> Percentage
+        {
+            get
+            {
+                return _Percentage;
+            }
+            set
+            {
+                OnPercentageChanging(value);
+                ReportPropertyChanging("Percentage");
+                _Percentage = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Percentage");
+                OnPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _Percentage;
+        partial void OnPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnPercentageChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DataModel", "TrackPlays", "Track")]
+        public Track Track
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Track>("DataModel.TrackPlays", "Track").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Track>("DataModel.TrackPlays", "Track").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Track> TrackReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Track>("DataModel.TrackPlays", "Track");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Track>("DataModel.TrackPlays", "Track", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="DataModel", Name="SimilarAlbum")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2504,6 +2848,54 @@ namespace Model
         private global::System.String _Description;
         partial void OnDescriptionChanging(global::System.String value);
         partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Rating
+        {
+            get
+            {
+                return _Rating;
+            }
+            set
+            {
+                OnRatingChanging(value);
+                ReportPropertyChanging("Rating");
+                _Rating = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Rating");
+                OnRatingChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Rating;
+        partial void OnRatingChanging(Nullable<global::System.Int32> value);
+        partial void OnRatingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Score
+        {
+            get
+            {
+                return _Score;
+            }
+            set
+            {
+                OnScoreChanging(value);
+                ReportPropertyChanging("Score");
+                _Score = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Score");
+                OnScoreChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Score;
+        partial void OnScoreChanging(Nullable<global::System.Int32> value);
+        partial void OnScoreChanged();
 
         #endregion
     
@@ -2625,6 +3017,28 @@ namespace Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TrackGenre>("DataModel.FK_TrackTrackGenres", "TrackGenres", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DataModel", "TrackPlays", "Play")]
+        public EntityCollection<Play> Plays
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Play>("DataModel.TrackPlays", "Play");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Play>("DataModel.TrackPlays", "Play", value);
                 }
             }
         }
