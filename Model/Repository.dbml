@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Data" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="AlbumGenres">
+    <Type Name="AlbumGenre">
+      <Column Name="AlbumId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GenreId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Score" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Album_AlbumGenre" Member="Album" ThisKey="AlbumId" OtherKey="Id" Type="Album" IsForeignKey="true" />
+      <Association Name="Genre_AlbumGenre" Member="Genre" ThisKey="GenreId" OtherKey="Id" Type="Genre" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="Albums">
+    <Type Name="Album">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="ArtistId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MBID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ReleaseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastFMListeners" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LastFMPlays" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="Album_AlbumGenre" Member="AlbumGenres" ThisKey="Id" OtherKey="AlbumId" Type="AlbumGenre" />
+      <Association Name="Album_Track" Member="Tracks" ThisKey="Id" OtherKey="Album_Id" Type="Track" />
+      <Association Name="Artist_Album" Member="Artist" ThisKey="ArtistId" OtherKey="Id" Type="Artist" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="ArtistGenres">
+    <Type Name="ArtistGenre">
+      <Column Name="GenreId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ArtistId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Score" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Artist_ArtistGenre" Member="Artist" ThisKey="ArtistId" OtherKey="Id" Type="Artist" IsForeignKey="true" />
+      <Association Name="Genre_ArtistGenre" Member="Genre" ThisKey="GenreId" OtherKey="Id" Type="Genre" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="Artists">
+    <Type Name="Artist">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="MBID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="LastFMListeners" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LastFMPlays" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LastUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Bio" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Artist_Album" Member="Albums" ThisKey="Id" OtherKey="ArtistId" Type="Album" />
+      <Association Name="Artist_ArtistGenre" Member="ArtistGenres" ThisKey="Id" OtherKey="ArtistId" Type="ArtistGenre" />
+      <Association Name="Artist_Track" Member="Tracks" ThisKey="Id" OtherKey="Artist_Id" Type="Track" />
+    </Type>
+  </Table>
+  <Table Name="Genres">
+    <Type Name="Genre">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Association Name="Genre_AlbumGenre" Member="AlbumGenres" ThisKey="Id" OtherKey="GenreId" Type="AlbumGenre" />
+      <Association Name="Genre_ArtistGenre" Member="ArtistGenres" ThisKey="Id" OtherKey="GenreId" Type="ArtistGenre" />
+      <Association Name="Genre_TrackGenre" Member="TrackGenres" ThisKey="Id" OtherKey="GenreId" Type="TrackGenre" />
+    </Type>
+  </Table>
+  <Table Name="MediaFiles">
+    <Type Name="MediaFile">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullPath" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="DateAdded" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastModified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Size" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="FileType" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="Tracks_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Repository_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Track_MediaFile" Member="Track" ThisKey="Tracks_Id" OtherKey="Id" Type="Track" IsForeignKey="true" />
+      <Association Name="MediaRepository_MediaFile" Member="MediaRepository" ThisKey="Repository_Id" OtherKey="Id" Type="MediaRepository" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="MediaRepositories">
+    <Type Name="MediaRepository">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="LastScanned" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateAdded" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="MediaRepository_MediaFile" Member="MediaFiles" ThisKey="Id" OtherKey="Repository_Id" Type="MediaFile" />
+    </Type>
+  </Table>
+  <Table Name="Plays">
+    <Type Name="Play">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Track_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DatePlayed" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Percentage" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Track_Play" Member="Track" ThisKey="Track_Id" OtherKey="Id" Type="Track" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="SimilarAlbums">
+    <Type Name="SimilarAlbum">
+      <Column Name="Album1" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Album2" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Score" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="SimilarArtists">
+    <Type Name="SimilarArtist">
+      <Column Name="Artist2" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Artist1" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Score" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="SimilarTracks">
+    <Type Name="SimilarTrack">
+      <Column Name="Track1" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Track2" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Score" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="TrackGenres">
+    <Type Name="TrackGenre">
+      <Column Name="TrackId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="GenreId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Score" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Genre_TrackGenre" Member="Genre" ThisKey="GenreId" OtherKey="Id" Type="Genre" IsForeignKey="true" />
+      <Association Name="Track_TrackGenre" Member="Track" ThisKey="TrackId" OtherKey="Id" Type="Track" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="Tracks">
+    <Type Name="Track">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="TrackNumber" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Duration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BPM" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BitRate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Composer" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="DiscNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReleaseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SampleRate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Artist_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Album_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MBID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="LastFMListeners" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LastFMPlays" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Rating" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Score" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Track_MediaFile" Member="MediaFiles" ThisKey="Id" OtherKey="Tracks_Id" Type="MediaFile" />
+      <Association Name="Track_Play" Member="Plays" ThisKey="Id" OtherKey="Track_Id" Type="Play" />
+      <Association Name="Track_TrackGenre" Member="TrackGenres" ThisKey="Id" OtherKey="TrackId" Type="TrackGenre" />
+      <Association Name="Album_Track" Member="Album" ThisKey="Album_Id" OtherKey="Id" Type="Album" IsForeignKey="true" />
+      <Association Name="Artist_Track" Member="Artist" ThisKey="Artist_Id" OtherKey="Id" Type="Artist" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

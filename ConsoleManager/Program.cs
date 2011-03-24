@@ -10,7 +10,12 @@ namespace ConsoleManager
 	{
 		static void Main(string[] args)
 		{
-			
+			var repo = DataAccessContext.GetRepository();
+			foreach (var x in repo.Albums)
+			{
+				Console.WriteLine(x.Id);
+			}
+			Console.ReadLine();
 		}
 	}
 }

@@ -33,6 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,10 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\LibraryLocationController.cs" />
+    <Compile Include="Interfaces\Controls\ILibraryLocationControl.cs" />
+    <Compile Include="Interfaces\ILibraryManagerView.cs" />
     <Compile Include="Interfaces\IMainWindowView.cs" />
+    <Compile Include="LibraryManagerController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SirenController.cs" />
+    <Compile Include="Utilities\StringFormats.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{D598AF18-034C-425F-A895-47582E467823}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

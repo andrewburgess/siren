@@ -4,17 +4,17 @@
 	x:Class="View.LibraryWindow"
 	x:Name="Window"
 	Title="LibraryWindow"
-	Width="640" Height="350" WindowStyle="ToolWindow">
+	Width="640" Height="350" WindowStyle="ToolWindow" MaxWidth="640" MaxHeight="350" MinWidth="640" MinHeight="350">
 
 	<DockPanel x:Name="LayoutRoot">
-		<ListView x:Name="RepositoryList" DockPanel.Dock="Top" Height="200" VerticalAlignment="Top">
+		<ListView x:Name="RepositoryList" DockPanel.Dock="Top" Height="200" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn/>
 				</GridView>
 			</ListView.View>
 		</ListView>
-		<Button x:Name="AddRepository" Content="Add Location To Library" Width="240" Height="50" HorizontalAlignment="Left" Margin="50,0,0,0"/>
-		<Button x:Name="CloseDialog" Content="Done" Width="240" HorizontalAlignment="Right" Height="50" Margin="0,0,50,0" IsDefault="True"/>
+		<Button x:Name="AddRepository" Content="Add Location To Library" Width="240" Height="50" HorizontalAlignment="Left" Margin="50,0,0,0" Click="AddRepositoryClick" />
+		<Button x:Name="CloseDialog" Content="Done" Width="240" HorizontalAlignment="Right" Height="50" Margin="0,0,50,0" IsDefault="True" Click="CloseDialogClick" />
 	</DockPanel>
 </Window>
