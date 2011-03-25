@@ -27,7 +27,7 @@ namespace Controller
 		/// <param name="location">The absolute path to the root of the repository location</param>
 		public void AddLocation(string location)
 		{
-			var repo = new MediaRepository {DateAdded = DateTime.Now, Location = location};
+			var repo = new MediaRepository {DateAdded = DateTime.Now, Location = location, Id = Guid.NewGuid()};
 			Repository.MediaRepositories.InsertOnSubmit(repo);
 			Repository.SubmitChanges();
 			

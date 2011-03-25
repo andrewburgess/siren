@@ -1364,11 +1364,9 @@ namespace Model
 		
 		private System.Guid _Id;
 		
-		private System.Nullable<System.Guid> _TrackId;
-		
 		private System.Nullable<System.Guid> _RepositoryId;
 		
-		private EntitySet<Track> _Tracks;
+		private System.Guid _TrackId;
 		
 		private EntityRef<MediaRepository> _MediaRepository;
 		
@@ -1390,15 +1388,14 @@ namespace Model
     partial void OnFileTypeChanged();
     partial void OnIdChanging(System.Guid value);
     partial void OnIdChanged();
-    partial void OnTrackIdChanging(System.Nullable<System.Guid> value);
-    partial void OnTrackIdChanged();
     partial void OnRepositoryIdChanging(System.Nullable<System.Guid> value);
     partial void OnRepositoryIdChanged();
+    partial void OnTrackIdChanging(System.Guid value);
+    partial void OnTrackIdChanged();
     #endregion
 		
 		public MediaFile()
 		{
-			this._Tracks = new EntitySet<Track>(new Action<Track>(this.attach_Tracks), new Action<Track>(this.detach_Tracks));
 			this._MediaRepository = default(EntityRef<MediaRepository>);
 			this._Track = default(EntityRef<Track>);
 			OnCreated();
@@ -1524,30 +1521,6 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> TrackId
-		{
-			get
-			{
-				return this._TrackId;
-			}
-			set
-			{
-				if ((this._TrackId != value))
-				{
-					if (this._Track.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTrackIdChanging(value);
-					this.SendPropertyChanging();
-					this._TrackId = value;
-					this.SendPropertyChanged("TrackId");
-					this.OnTrackIdChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepositoryId", DbType="UniqueIdentifier")]
 		public System.Nullable<System.Guid> RepositoryId
 		{
@@ -1572,16 +1545,27 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MediaFile_Track", Storage="_Tracks", ThisKey="Id", OtherKey="MediaFileId")]
-		public EntitySet<Track> Tracks
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid TrackId
 		{
 			get
 			{
-				return this._Tracks;
+				return this._TrackId;
 			}
 			set
 			{
-				this._Tracks.Assign(value);
+				if ((this._TrackId != value))
+				{
+					if (this._Track.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrackIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrackId = value;
+					this.SendPropertyChanged("TrackId");
+					this.OnTrackIdChanged();
+				}
 			}
 		}
 		
@@ -1646,7 +1630,7 @@ namespace Model
 					}
 					else
 					{
-						this._TrackId = default(Nullable<System.Guid>);
+						this._TrackId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Track");
 				}
@@ -1671,18 +1655,6 @@ namespace Model
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Tracks(Track entity)
-		{
-			this.SendPropertyChanging();
-			entity.MediaFile = this;
-		}
-		
-		private void detach_Tracks(Track entity)
-		{
-			this.SendPropertyChanging();
-			entity.MediaFile = null;
 		}
 	}
 	
@@ -2553,8 +2525,6 @@ namespace Model
 		
 		private string _Name;
 		
-		private string _TrackNumber;
-		
 		private System.Nullable<int> _Duration;
 		
 		private System.Nullable<int> _BPM;
@@ -2591,7 +2561,7 @@ namespace Model
 		
 		private System.Nullable<System.Guid> _AlbumId;
 		
-		private System.Nullable<System.Guid> _MediaFileId;
+		private System.Nullable<int> _TrackNumber;
 		
 		private EntitySet<MediaFile> _MediaFiles;
 		
@@ -2603,16 +2573,12 @@ namespace Model
 		
 		private EntityRef<Artist> _Artist;
 		
-		private EntityRef<MediaFile> _MediaFile;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
-    partial void OnTrackNumberChanging(string value);
-    partial void OnTrackNumberChanged();
     partial void OnDurationChanging(System.Nullable<int> value);
     partial void OnDurationChanged();
     partial void OnBPMChanging(System.Nullable<int> value);
@@ -2649,8 +2615,8 @@ namespace Model
     partial void OnArtistIdChanged();
     partial void OnAlbumIdChanging(System.Nullable<System.Guid> value);
     partial void OnAlbumIdChanged();
-    partial void OnMediaFileIdChanging(System.Nullable<System.Guid> value);
-    partial void OnMediaFileIdChanged();
+    partial void OnTrackNumberChanging(System.Nullable<int> value);
+    partial void OnTrackNumberChanged();
     #endregion
 		
 		public Track()
@@ -2660,11 +2626,10 @@ namespace Model
 			this._TrackGenres = new EntitySet<TrackGenre>(new Action<TrackGenre>(this.attach_TrackGenres), new Action<TrackGenre>(this.detach_TrackGenres));
 			this._Album = default(EntityRef<Album>);
 			this._Artist = default(EntityRef<Artist>);
-			this._MediaFile = default(EntityRef<MediaFile>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -2680,26 +2645,6 @@ namespace Model
 					this._Name = value;
 					this.SendPropertyChanged("Name");
 					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackNumber", DbType="NVarChar(4000)")]
-		public string TrackNumber
-		{
-			get
-			{
-				return this._TrackNumber;
-			}
-			set
-			{
-				if ((this._TrackNumber != value))
-				{
-					this.OnTrackNumberChanging(value);
-					this.SendPropertyChanging();
-					this._TrackNumber = value;
-					this.SendPropertyChanged("TrackNumber");
-					this.OnTrackNumberChanged();
 				}
 			}
 		}
@@ -3072,26 +3017,22 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MediaFileId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> MediaFileId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackNumber", DbType="Int")]
+		public System.Nullable<int> TrackNumber
 		{
 			get
 			{
-				return this._MediaFileId;
+				return this._TrackNumber;
 			}
 			set
 			{
-				if ((this._MediaFileId != value))
+				if ((this._TrackNumber != value))
 				{
-					if (this._MediaFile.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMediaFileIdChanging(value);
+					this.OnTrackNumberChanging(value);
 					this.SendPropertyChanging();
-					this._MediaFileId = value;
-					this.SendPropertyChanged("MediaFileId");
-					this.OnMediaFileIdChanged();
+					this._TrackNumber = value;
+					this.SendPropertyChanged("TrackNumber");
+					this.OnTrackNumberChanged();
 				}
 			}
 		}
@@ -3199,40 +3140,6 @@ namespace Model
 						this._ArtistId = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Artist");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MediaFile_Track", Storage="_MediaFile", ThisKey="MediaFileId", OtherKey="Id", IsForeignKey=true)]
-		public MediaFile MediaFile
-		{
-			get
-			{
-				return this._MediaFile.Entity;
-			}
-			set
-			{
-				MediaFile previousValue = this._MediaFile.Entity;
-				if (((previousValue != value) 
-							|| (this._MediaFile.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._MediaFile.Entity = null;
-						previousValue.Tracks.Remove(this);
-					}
-					this._MediaFile.Entity = value;
-					if ((value != null))
-					{
-						value.Tracks.Add(this);
-						this._MediaFileId = value.Id;
-					}
-					else
-					{
-						this._MediaFileId = default(Nullable<System.Guid>);
-					}
-					this.SendPropertyChanged("MediaFile");
 				}
 			}
 		}

@@ -63,9 +63,8 @@
       <Column Name="Size" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="FileType" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TrackId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="RepositoryId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="FK_MediaFiles_Tracks" Member="Tracks" ThisKey="Id" OtherKey="MediaFileId" Type="Track" DeleteRule="NO ACTION" />
+      <Column Name="TrackId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Association Name="FK_MediaRepositories_MediaFiles" Member="MediaRepository" ThisKey="RepositoryId" OtherKey="Id" Type="MediaRepository" IsForeignKey="true" />
       <Association Name="FK_Tracks_MediaFiles" Member="Track" ThisKey="TrackId" OtherKey="Id" Type="Track" IsForeignKey="true" />
     </Type>
@@ -120,8 +119,7 @@
   </Table>
   <Table Name="Tracks">
     <Type Name="Track">
-      <Column Name="Name" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
-      <Column Name="TrackNumber" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="Duration" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="BPM" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="BitRate" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -140,10 +138,9 @@
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ArtistId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="AlbumId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="MediaFileId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="TrackNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="FK_Albums_Tracks" Member="Album" ThisKey="AlbumId" OtherKey="Id" Type="Album" IsForeignKey="true" />
       <Association Name="FK_Artists_Tracks" Member="Artist" ThisKey="ArtistId" OtherKey="Id" Type="Artist" IsForeignKey="true" />
-      <Association Name="FK_MediaFiles_Tracks" Member="MediaFile" ThisKey="MediaFileId" OtherKey="Id" Type="MediaFile" IsForeignKey="true" />
       <Association Name="FK_Tracks_MediaFiles" Member="MediaFiles" ThisKey="Id" OtherKey="TrackId" Type="MediaFile" DeleteRule="NO ACTION" />
       <Association Name="FK_Tracks_Plays" Member="Plays" ThisKey="Id" OtherKey="TrackId" Type="Play" DeleteRule="NO ACTION" />
       <Association Name="FK_Tracks_TrackGenres" Member="TrackGenres" ThisKey="Id" OtherKey="TrackId" Type="TrackGenre" DeleteRule="NO ACTION" />
