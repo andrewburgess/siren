@@ -23,15 +23,16 @@
 				<MenuItem x:Name="MenuLibraryManage" Header="Manage Library" Click="MenuLibraryManageClick"/>
 				<MenuItem x:Name="MenuLibraryRescan" Header="Rescan Library" Click="MenuLibraryRescanClick"/>
 			</MenuItem>
+			<MenuItem x:Name="MenuHelp" Header="Help"/>
 		</Menu>
         <StackPanel x:Name="PlayAreaPanel" Height="75" Orientation="Horizontal" DockPanel.Dock="Top">
 			<Button x:Name="PrevButton" Content="&lt;&lt;" Width="50" Margin="15,20,5,20"/>
 			<Button x:Name="PlayButton" Content="&gt;" Width="50" Margin="10,15,5,15"/>
 			<Button x:Name="NextButton" Content="&gt;&gt;" Width="50" Margin="10,20,5,20"/>
 		</StackPanel>
-        <DockPanel x:Name="ContentParentPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto">
+        <DockPanel x:Name="ContentParentPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top" Margin="0">
         	<DockPanel x:Name="QueuePanel" LastChildFill="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="250" Height="Auto" DockPanel.Dock="Right" />
-        	<DockPanel x:Name="ContentPanel" LastChildFill="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="530" MinHeight="465"/>
+        	<DockPanel x:Name="ContentPanel" LastChildFill="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="530" MinHeight="465" DockPanel.Dock="Top"/>
 		</DockPanel>
 	</DockPanel>
 </Window>

@@ -25,7 +25,7 @@ namespace View
 
 		private void MenuLibraryRescanClick(object sender, RoutedEventArgs e)
 		{
-			// TODO: Add event handler implementation here.
+			Controller.RescanLibrary();
 		}
 	}
 }

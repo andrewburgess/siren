@@ -27,48 +27,48 @@ namespace Model
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
-	#region Extensibility Method Definitions
-	partial void OnCreated();
-	partial void InsertAlbumGenre(AlbumGenre instance);
-	partial void UpdateAlbumGenre(AlbumGenre instance);
-	partial void DeleteAlbumGenre(AlbumGenre instance);
-	partial void InsertAlbum(Album instance);
-	partial void UpdateAlbum(Album instance);
-	partial void DeleteAlbum(Album instance);
-	partial void InsertArtistGenre(ArtistGenre instance);
-	partial void UpdateArtistGenre(ArtistGenre instance);
-	partial void DeleteArtistGenre(ArtistGenre instance);
-	partial void InsertArtist(Artist instance);
-	partial void UpdateArtist(Artist instance);
-	partial void DeleteArtist(Artist instance);
-	partial void InsertGenre(Genre instance);
-	partial void UpdateGenre(Genre instance);
-	partial void DeleteGenre(Genre instance);
-	partial void InsertMediaFile(MediaFile instance);
-	partial void UpdateMediaFile(MediaFile instance);
-	partial void DeleteMediaFile(MediaFile instance);
-	partial void InsertMediaRepository(MediaRepository instance);
-	partial void UpdateMediaRepository(MediaRepository instance);
-	partial void DeleteMediaRepository(MediaRepository instance);
-	partial void InsertPlay(Play instance);
-	partial void UpdatePlay(Play instance);
-	partial void DeletePlay(Play instance);
-	partial void InsertSimilarAlbum(SimilarAlbum instance);
-	partial void UpdateSimilarAlbum(SimilarAlbum instance);
-	partial void DeleteSimilarAlbum(SimilarAlbum instance);
-	partial void InsertSimilarArtist(SimilarArtist instance);
-	partial void UpdateSimilarArtist(SimilarArtist instance);
-	partial void DeleteSimilarArtist(SimilarArtist instance);
-	partial void InsertSimilarTrack(SimilarTrack instance);
-	partial void UpdateSimilarTrack(SimilarTrack instance);
-	partial void DeleteSimilarTrack(SimilarTrack instance);
-	partial void InsertTrackGenre(TrackGenre instance);
-	partial void UpdateTrackGenre(TrackGenre instance);
-	partial void DeleteTrackGenre(TrackGenre instance);
-	partial void InsertTrack(Track instance);
-	partial void UpdateTrack(Track instance);
-	partial void DeleteTrack(Track instance);
-	#endregion
+    #region Extensibility Method Definitions
+    partial void OnCreated();
+    partial void InsertAlbumGenre(AlbumGenre instance);
+    partial void UpdateAlbumGenre(AlbumGenre instance);
+    partial void DeleteAlbumGenre(AlbumGenre instance);
+    partial void InsertAlbum(Album instance);
+    partial void UpdateAlbum(Album instance);
+    partial void DeleteAlbum(Album instance);
+    partial void InsertArtistGenre(ArtistGenre instance);
+    partial void UpdateArtistGenre(ArtistGenre instance);
+    partial void DeleteArtistGenre(ArtistGenre instance);
+    partial void InsertArtist(Artist instance);
+    partial void UpdateArtist(Artist instance);
+    partial void DeleteArtist(Artist instance);
+    partial void InsertGenre(Genre instance);
+    partial void UpdateGenre(Genre instance);
+    partial void DeleteGenre(Genre instance);
+    partial void InsertMediaFile(MediaFile instance);
+    partial void UpdateMediaFile(MediaFile instance);
+    partial void DeleteMediaFile(MediaFile instance);
+    partial void InsertMediaRepository(MediaRepository instance);
+    partial void UpdateMediaRepository(MediaRepository instance);
+    partial void DeleteMediaRepository(MediaRepository instance);
+    partial void InsertPlay(Play instance);
+    partial void UpdatePlay(Play instance);
+    partial void DeletePlay(Play instance);
+    partial void InsertSimilarAlbum(SimilarAlbum instance);
+    partial void UpdateSimilarAlbum(SimilarAlbum instance);
+    partial void DeleteSimilarAlbum(SimilarAlbum instance);
+    partial void InsertSimilarArtist(SimilarArtist instance);
+    partial void UpdateSimilarArtist(SimilarArtist instance);
+    partial void DeleteSimilarArtist(SimilarArtist instance);
+    partial void InsertSimilarTrack(SimilarTrack instance);
+    partial void UpdateSimilarTrack(SimilarTrack instance);
+    partial void DeleteSimilarTrack(SimilarTrack instance);
+    partial void InsertTrackGenre(TrackGenre instance);
+    partial void UpdateTrackGenre(TrackGenre instance);
+    partial void DeleteTrackGenre(TrackGenre instance);
+    partial void InsertTrack(Track instance);
+    partial void UpdateTrack(Track instance);
+    partial void DeleteTrack(Track instance);
+    #endregion
 		
 		public Repository(string connection) : 
 				base(connection, mappingSource)
@@ -205,27 +205,27 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _AlbumId;
+		private System.Guid _AlbumId;
 		
-		private int _GenreId;
+		private System.Guid _GenreId;
 		
-		private int _Score;
+		private System.Nullable<int> _Score;
 		
 		private EntityRef<Album> _Album;
 		
 		private EntityRef<Genre> _Genre;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnAlbumIdChanging(int value);
-	partial void OnAlbumIdChanged();
-	partial void OnGenreIdChanging(int value);
-	partial void OnGenreIdChanged();
-	partial void OnScoreChanging(int value);
-	partial void OnScoreChanged();
-	#endregion
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAlbumIdChanging(System.Guid value);
+    partial void OnAlbumIdChanged();
+    partial void OnGenreIdChanging(System.Guid value);
+    partial void OnGenreIdChanged();
+    partial void OnScoreChanging(System.Nullable<int> value);
+    partial void OnScoreChanged();
+    #endregion
 		
 		public AlbumGenre()
 		{
@@ -234,8 +234,8 @@ namespace Model
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlbumId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int AlbumId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlbumId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid AlbumId
 		{
 			get
 			{
@@ -258,8 +258,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GenreId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int GenreId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GenreId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid GenreId
 		{
 			get
 			{
@@ -282,8 +282,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int NOT NULL")]
-		public int Score
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int")]
+		public System.Nullable<int> Score
 		{
 			get
 			{
@@ -329,7 +329,7 @@ namespace Model
 					}
 					else
 					{
-						this._AlbumId = default(int);
+						this._AlbumId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Album");
 				}
@@ -363,7 +363,7 @@ namespace Model
 					}
 					else
 					{
-						this._GenreId = default(int);
+						this._GenreId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Genre");
 				}
@@ -397,11 +397,7 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
-		
 		private string _Name;
-		
-		private System.Nullable<int> _ArtistId;
 		
 		private System.Nullable<System.Guid> _MBID;
 		
@@ -411,31 +407,35 @@ namespace Model
 		
 		private System.Nullable<long> _LastFMPlays;
 		
+		private System.Guid _Id;
+		
+		private System.Nullable<System.Guid> _ArtistId;
+		
 		private EntitySet<AlbumGenre> _AlbumGenres;
 		
 		private EntitySet<Track> _Tracks;
 		
 		private EntityRef<Artist> _Artist;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnIdChanging(int value);
-	partial void OnIdChanged();
-	partial void OnNameChanging(string value);
-	partial void OnNameChanged();
-	partial void OnArtistIdChanging(System.Nullable<int> value);
-	partial void OnArtistIdChanged();
-	partial void OnMBIDChanging(System.Nullable<System.Guid> value);
-	partial void OnMBIDChanged();
-	partial void OnReleaseDateChanging(System.Nullable<System.DateTime> value);
-	partial void OnReleaseDateChanged();
-	partial void OnLastFMListenersChanging(System.Nullable<long> value);
-	partial void OnLastFMListenersChanged();
-	partial void OnLastFMPlaysChanging(System.Nullable<long> value);
-	partial void OnLastFMPlaysChanged();
-	#endregion
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnMBIDChanging(System.Nullable<System.Guid> value);
+    partial void OnMBIDChanged();
+    partial void OnReleaseDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnReleaseDateChanged();
+    partial void OnLastFMListenersChanging(System.Nullable<long> value);
+    partial void OnLastFMListenersChanged();
+    partial void OnLastFMPlaysChanging(System.Nullable<long> value);
+    partial void OnLastFMPlaysChanged();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnArtistIdChanging(System.Nullable<System.Guid> value);
+    partial void OnArtistIdChanged();
+    #endregion
 		
 		public Album()
 		{
@@ -443,26 +443,6 @@ namespace Model
 			this._Tracks = new EntitySet<Track>(new Action<Track>(this.attach_Tracks), new Action<Track>(this.detach_Tracks));
 			this._Artist = default(EntityRef<Artist>);
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
@@ -481,30 +461,6 @@ namespace Model
 					this._Name = value;
 					this.SendPropertyChanged("Name");
 					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArtistId", DbType="Int")]
-		public System.Nullable<int> ArtistId
-		{
-			get
-			{
-				return this._ArtistId;
-			}
-			set
-			{
-				if ((this._ArtistId != value))
-				{
-					if (this._Artist.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnArtistIdChanging(value);
-					this.SendPropertyChanging();
-					this._ArtistId = value;
-					this.SendPropertyChanged("ArtistId");
-					this.OnArtistIdChanged();
 				}
 			}
 		}
@@ -589,6 +545,50 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArtistId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> ArtistId
+		{
+			get
+			{
+				return this._ArtistId;
+			}
+			set
+			{
+				if ((this._ArtistId != value))
+				{
+					if (this._Artist.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnArtistIdChanging(value);
+					this.SendPropertyChanging();
+					this._ArtistId = value;
+					this.SendPropertyChanged("ArtistId");
+					this.OnArtistIdChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_AlbumGenre", Storage="_AlbumGenres", ThisKey="Id", OtherKey="AlbumId")]
 		public EntitySet<AlbumGenre> AlbumGenres
 		{
@@ -602,7 +602,7 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Track", Storage="_Tracks", ThisKey="Id", OtherKey="Album_Id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Track", Storage="_Tracks", ThisKey="Id", OtherKey="AlbumId")]
 		public EntitySet<Track> Tracks
 		{
 			get
@@ -642,7 +642,7 @@ namespace Model
 					}
 					else
 					{
-						this._ArtistId = default(Nullable<int>);
+						this._ArtistId = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Artist");
 				}
@@ -700,27 +700,27 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _GenreId;
-		
-		private int _ArtistId;
-		
 		private int _Score;
+		
+		private System.Guid _GenreId;
+		
+		private System.Guid _ArtistId;
 		
 		private EntityRef<Artist> _Artist;
 		
 		private EntityRef<Genre> _Genre;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnGenreIdChanging(int value);
-	partial void OnGenreIdChanged();
-	partial void OnArtistIdChanging(int value);
-	partial void OnArtistIdChanged();
-	partial void OnScoreChanging(int value);
-	partial void OnScoreChanged();
-	#endregion
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnScoreChanging(int value);
+    partial void OnScoreChanged();
+    partial void OnGenreIdChanging(System.Guid value);
+    partial void OnGenreIdChanged();
+    partial void OnArtistIdChanging(System.Guid value);
+    partial void OnArtistIdChanged();
+    #endregion
 		
 		public ArtistGenre()
 		{
@@ -729,8 +729,28 @@ namespace Model
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GenreId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int GenreId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int NOT NULL")]
+		public int Score
+		{
+			get
+			{
+				return this._Score;
+			}
+			set
+			{
+				if ((this._Score != value))
+				{
+					this.OnScoreChanging(value);
+					this.SendPropertyChanging();
+					this._Score = value;
+					this.SendPropertyChanged("Score");
+					this.OnScoreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GenreId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid GenreId
 		{
 			get
 			{
@@ -753,8 +773,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArtistId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ArtistId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArtistId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ArtistId
 		{
 			get
 			{
@@ -773,26 +793,6 @@ namespace Model
 					this._ArtistId = value;
 					this.SendPropertyChanged("ArtistId");
 					this.OnArtistIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int NOT NULL")]
-		public int Score
-		{
-			get
-			{
-				return this._Score;
-			}
-			set
-			{
-				if ((this._Score != value))
-				{
-					this.OnScoreChanging(value);
-					this.SendPropertyChanging();
-					this._Score = value;
-					this.SendPropertyChanged("Score");
-					this.OnScoreChanged();
 				}
 			}
 		}
@@ -824,7 +824,7 @@ namespace Model
 					}
 					else
 					{
-						this._ArtistId = default(int);
+						this._ArtistId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Artist");
 				}
@@ -858,7 +858,7 @@ namespace Model
 					}
 					else
 					{
-						this._GenreId = default(int);
+						this._GenreId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Genre");
 				}
@@ -892,8 +892,6 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
-		
 		private string _Name;
 		
 		private System.Nullable<System.Guid> _MBID;
@@ -906,31 +904,33 @@ namespace Model
 		
 		private string _Bio;
 		
+		private System.Guid _Id;
+		
 		private EntitySet<Album> _Albums;
 		
 		private EntitySet<ArtistGenre> _ArtistGenres;
 		
 		private EntitySet<Track> _Tracks;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnIdChanging(int value);
-	partial void OnIdChanged();
-	partial void OnNameChanging(string value);
-	partial void OnNameChanged();
-	partial void OnMBIDChanging(System.Nullable<System.Guid> value);
-	partial void OnMBIDChanged();
-	partial void OnLastFMListenersChanging(System.Nullable<long> value);
-	partial void OnLastFMListenersChanged();
-	partial void OnLastFMPlaysChanging(System.Nullable<long> value);
-	partial void OnLastFMPlaysChanged();
-	partial void OnLastUpdateChanging(System.Nullable<System.DateTime> value);
-	partial void OnLastUpdateChanged();
-	partial void OnBioChanging(string value);
-	partial void OnBioChanged();
-	#endregion
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnMBIDChanging(System.Nullable<System.Guid> value);
+    partial void OnMBIDChanged();
+    partial void OnLastFMListenersChanging(System.Nullable<long> value);
+    partial void OnLastFMListenersChanged();
+    partial void OnLastFMPlaysChanging(System.Nullable<long> value);
+    partial void OnLastFMPlaysChanged();
+    partial void OnLastUpdateChanging(System.Nullable<System.DateTime> value);
+    partial void OnLastUpdateChanged();
+    partial void OnBioChanging(string value);
+    partial void OnBioChanged();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    #endregion
 		
 		public Artist()
 		{
@@ -938,26 +938,6 @@ namespace Model
 			this._ArtistGenres = new EntitySet<ArtistGenre>(new Action<ArtistGenre>(this.attach_ArtistGenres), new Action<ArtistGenre>(this.detach_ArtistGenres));
 			this._Tracks = new EntitySet<Track>(new Action<Track>(this.attach_Tracks), new Action<Track>(this.detach_Tracks));
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
@@ -1080,6 +1060,26 @@ namespace Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Album", Storage="_Albums", ThisKey="Id", OtherKey="ArtistId")]
 		public EntitySet<Album> Albums
 		{
@@ -1106,7 +1106,7 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Track", Storage="_Tracks", ThisKey="Id", OtherKey="Artist_Id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Track", Storage="_Tracks", ThisKey="Id", OtherKey="ArtistId")]
 		public EntitySet<Track> Tracks
 		{
 			get
@@ -1182,9 +1182,9 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
-		
 		private string _Name;
+		
+		private System.Guid _Id;
 		
 		private EntitySet<AlbumGenre> _AlbumGenres;
 		
@@ -1192,15 +1192,15 @@ namespace Model
 		
 		private EntitySet<TrackGenre> _TrackGenres;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnIdChanging(int value);
-	partial void OnIdChanged();
-	partial void OnNameChanging(string value);
-	partial void OnNameChanged();
-	#endregion
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    #endregion
 		
 		public Genre()
 		{
@@ -1208,26 +1208,6 @@ namespace Model
 			this._ArtistGenres = new EntitySet<ArtistGenre>(new Action<ArtistGenre>(this.attach_ArtistGenres), new Action<ArtistGenre>(this.detach_ArtistGenres));
 			this._TrackGenres = new EntitySet<TrackGenre>(new Action<TrackGenre>(this.attach_TrackGenres), new Action<TrackGenre>(this.detach_TrackGenres));
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
@@ -1246,6 +1226,26 @@ namespace Model
 					this._Name = value;
 					this.SendPropertyChanged("Name");
 					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
@@ -1352,8 +1352,6 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
-		
 		private string _FullPath;
 		
 		private System.DateTime _DateAdded;
@@ -1364,61 +1362,46 @@ namespace Model
 		
 		private string _FileType;
 		
-		private int _Tracks_Id;
+		private System.Guid _Id;
 		
-		private System.Nullable<int> _Repository_Id;
+		private System.Nullable<System.Guid> _TrackId;
 		
-		private EntityRef<Track> _Track;
+		private System.Nullable<System.Guid> _RepositoryId;
+		
+		private EntitySet<Track> _Tracks;
 		
 		private EntityRef<MediaRepository> _MediaRepository;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnIdChanging(int value);
-	partial void OnIdChanged();
-	partial void OnFullPathChanging(string value);
-	partial void OnFullPathChanged();
-	partial void OnDateAddedChanging(System.DateTime value);
-	partial void OnDateAddedChanged();
-	partial void OnLastModifiedChanging(System.DateTime value);
-	partial void OnLastModifiedChanged();
-	partial void OnSizeChanging(long value);
-	partial void OnSizeChanged();
-	partial void OnFileTypeChanging(string value);
-	partial void OnFileTypeChanged();
-	partial void OnTracks_IdChanging(int value);
-	partial void OnTracks_IdChanged();
-	partial void OnRepository_IdChanging(System.Nullable<int> value);
-	partial void OnRepository_IdChanged();
-	#endregion
+		private EntityRef<Track> _Track;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFullPathChanging(string value);
+    partial void OnFullPathChanged();
+    partial void OnDateAddedChanging(System.DateTime value);
+    partial void OnDateAddedChanged();
+    partial void OnLastModifiedChanging(System.DateTime value);
+    partial void OnLastModifiedChanged();
+    partial void OnSizeChanging(long value);
+    partial void OnSizeChanged();
+    partial void OnFileTypeChanging(string value);
+    partial void OnFileTypeChanged();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnTrackIdChanging(System.Nullable<System.Guid> value);
+    partial void OnTrackIdChanged();
+    partial void OnRepositoryIdChanging(System.Nullable<System.Guid> value);
+    partial void OnRepositoryIdChanged();
+    #endregion
 		
 		public MediaFile()
 		{
-			this._Track = default(EntityRef<Track>);
+			this._Tracks = new EntitySet<Track>(new Action<Track>(this.attach_Tracks), new Action<Track>(this.detach_Tracks));
 			this._MediaRepository = default(EntityRef<MediaRepository>);
+			this._Track = default(EntityRef<Track>);
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullPath", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
@@ -1521,89 +1504,88 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tracks_Id", DbType="Int NOT NULL")]
-		public int Tracks_Id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
 		{
 			get
 			{
-				return this._Tracks_Id;
+				return this._Id;
 			}
 			set
 			{
-				if ((this._Tracks_Id != value))
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> TrackId
+		{
+			get
+			{
+				return this._TrackId;
+			}
+			set
+			{
+				if ((this._TrackId != value))
 				{
 					if (this._Track.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnTracks_IdChanging(value);
+					this.OnTrackIdChanging(value);
 					this.SendPropertyChanging();
-					this._Tracks_Id = value;
-					this.SendPropertyChanged("Tracks_Id");
-					this.OnTracks_IdChanged();
+					this._TrackId = value;
+					this.SendPropertyChanged("TrackId");
+					this.OnTrackIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Repository_Id", DbType="Int")]
-		public System.Nullable<int> Repository_Id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RepositoryId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> RepositoryId
 		{
 			get
 			{
-				return this._Repository_Id;
+				return this._RepositoryId;
 			}
 			set
 			{
-				if ((this._Repository_Id != value))
+				if ((this._RepositoryId != value))
 				{
 					if (this._MediaRepository.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnRepository_IdChanging(value);
+					this.OnRepositoryIdChanging(value);
 					this.SendPropertyChanging();
-					this._Repository_Id = value;
-					this.SendPropertyChanged("Repository_Id");
-					this.OnRepository_IdChanged();
+					this._RepositoryId = value;
+					this.SendPropertyChanged("RepositoryId");
+					this.OnRepositoryIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_MediaFile", Storage="_Track", ThisKey="Tracks_Id", OtherKey="Id", IsForeignKey=true)]
-		public Track Track
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MediaFile_Track", Storage="_Tracks", ThisKey="Id", OtherKey="MediaFileId")]
+		public EntitySet<Track> Tracks
 		{
 			get
 			{
-				return this._Track.Entity;
+				return this._Tracks;
 			}
 			set
 			{
-				Track previousValue = this._Track.Entity;
-				if (((previousValue != value) 
-							|| (this._Track.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Track.Entity = null;
-						previousValue.MediaFiles.Remove(this);
-					}
-					this._Track.Entity = value;
-					if ((value != null))
-					{
-						value.MediaFiles.Add(this);
-						this._Tracks_Id = value.Id;
-					}
-					else
-					{
-						this._Tracks_Id = default(int);
-					}
-					this.SendPropertyChanged("Track");
-				}
+				this._Tracks.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MediaRepository_MediaFile", Storage="_MediaRepository", ThisKey="Repository_Id", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MediaRepository_MediaFile", Storage="_MediaRepository", ThisKey="RepositoryId", OtherKey="Id", IsForeignKey=true)]
 		public MediaRepository MediaRepository
 		{
 			get
@@ -1626,13 +1608,47 @@ namespace Model
 					if ((value != null))
 					{
 						value.MediaFiles.Add(this);
-						this._Repository_Id = value.Id;
+						this._RepositoryId = value.Id;
 					}
 					else
 					{
-						this._Repository_Id = default(Nullable<int>);
+						this._RepositoryId = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("MediaRepository");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_MediaFile", Storage="_Track", ThisKey="TrackId", OtherKey="Id", IsForeignKey=true)]
+		public Track Track
+		{
+			get
+			{
+				return this._Track.Entity;
+			}
+			set
+			{
+				Track previousValue = this._Track.Entity;
+				if (((previousValue != value) 
+							|| (this._Track.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Track.Entity = null;
+						previousValue.MediaFiles.Remove(this);
+					}
+					this._Track.Entity = value;
+					if ((value != null))
+					{
+						value.MediaFiles.Add(this);
+						this._TrackId = value.Id;
+					}
+					else
+					{
+						this._TrackId = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("Track");
 				}
 			}
 		}
@@ -1656,6 +1672,18 @@ namespace Model
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_Tracks(Track entity)
+		{
+			this.SendPropertyChanging();
+			entity.MediaFile = this;
+		}
+		
+		private void detach_Tracks(Track entity)
+		{
+			this.SendPropertyChanging();
+			entity.MediaFile = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="MediaRepositories")]
@@ -1664,54 +1692,34 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
-		
 		private string _Location;
 		
 		private System.Nullable<System.DateTime> _LastScanned;
 		
 		private System.Nullable<System.DateTime> _DateAdded;
 		
+		private System.Guid _Id;
+		
 		private EntitySet<MediaFile> _MediaFiles;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnIdChanging(int value);
-	partial void OnIdChanged();
-	partial void OnLocationChanging(string value);
-	partial void OnLocationChanged();
-	partial void OnLastScannedChanging(System.Nullable<System.DateTime> value);
-	partial void OnLastScannedChanged();
-	partial void OnDateAddedChanging(System.Nullable<System.DateTime> value);
-	partial void OnDateAddedChanged();
-	#endregion
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLocationChanging(string value);
+    partial void OnLocationChanged();
+    partial void OnLastScannedChanging(System.Nullable<System.DateTime> value);
+    partial void OnLastScannedChanged();
+    partial void OnDateAddedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateAddedChanged();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    #endregion
 		
 		public MediaRepository()
 		{
 			this._MediaFiles = new EntitySet<MediaFile>(new Action<MediaFile>(this.attach_MediaFiles), new Action<MediaFile>(this.detach_MediaFiles));
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="NVarChar(255)")]
@@ -1774,7 +1782,27 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MediaRepository_MediaFile", Storage="_MediaFiles", ThisKey="Id", OtherKey="Repository_Id")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MediaRepository_MediaFile", Storage="_MediaFiles", ThisKey="Id", OtherKey="RepositoryId")]
 		public EntitySet<MediaFile> MediaFiles
 		{
 			get
@@ -1826,78 +1854,34 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
-		
-		private System.Nullable<int> _Track_Id;
-		
 		private System.Nullable<System.DateTime> _DatePlayed;
 		
 		private System.Nullable<double> _Percentage;
 		
+		private System.Guid _Id;
+		
+		private System.Nullable<System.Guid> _TrackId;
+		
 		private EntityRef<Track> _Track;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnIdChanging(int value);
-	partial void OnIdChanged();
-	partial void OnTrack_IdChanging(System.Nullable<int> value);
-	partial void OnTrack_IdChanged();
-	partial void OnDatePlayedChanging(System.Nullable<System.DateTime> value);
-	partial void OnDatePlayedChanged();
-	partial void OnPercentageChanging(System.Nullable<double> value);
-	partial void OnPercentageChanged();
-	#endregion
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDatePlayedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDatePlayedChanged();
+    partial void OnPercentageChanging(System.Nullable<double> value);
+    partial void OnPercentageChanged();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnTrackIdChanging(System.Nullable<System.Guid> value);
+    partial void OnTrackIdChanged();
+    #endregion
 		
 		public Play()
 		{
 			this._Track = default(EntityRef<Track>);
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Track_Id", DbType="Int")]
-		public System.Nullable<int> Track_Id
-		{
-			get
-			{
-				return this._Track_Id;
-			}
-			set
-			{
-				if ((this._Track_Id != value))
-				{
-					if (this._Track.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTrack_IdChanging(value);
-					this.SendPropertyChanging();
-					this._Track_Id = value;
-					this.SendPropertyChanged("Track_Id");
-					this.OnTrack_IdChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatePlayed", DbType="DateTime")]
@@ -1940,7 +1924,51 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_Play", Storage="_Track", ThisKey="Track_Id", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> TrackId
+		{
+			get
+			{
+				return this._TrackId;
+			}
+			set
+			{
+				if ((this._TrackId != value))
+				{
+					if (this._Track.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrackIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrackId = value;
+					this.SendPropertyChanged("TrackId");
+					this.OnTrackIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_Play", Storage="_Track", ThisKey="TrackId", OtherKey="Id", IsForeignKey=true)]
 		public Track Track
 		{
 			get
@@ -1963,11 +1991,11 @@ namespace Model
 					if ((value != null))
 					{
 						value.Plays.Add(this);
-						this._Track_Id = value.Id;
+						this._TrackId = value.Id;
 					}
 					else
 					{
-						this._Track_Id = default(Nullable<int>);
+						this._TrackId = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Track");
 				}
@@ -2001,67 +2029,27 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Album1;
-		
-		private int _Album2;
-		
 		private string _Score;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnAlbum1Changing(int value);
-	partial void OnAlbum1Changed();
-	partial void OnAlbum2Changing(int value);
-	partial void OnAlbum2Changed();
-	partial void OnScoreChanging(string value);
-	partial void OnScoreChanged();
-	#endregion
+		private System.Guid _AlbumId_1;
+		
+		private System.Guid _AlbumId_2;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnScoreChanging(string value);
+    partial void OnScoreChanged();
+    partial void OnAlbumId_1Changing(System.Guid value);
+    partial void OnAlbumId_1Changed();
+    partial void OnAlbumId_2Changing(System.Guid value);
+    partial void OnAlbumId_2Changed();
+    #endregion
 		
 		public SimilarAlbum()
 		{
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Album1", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Album1
-		{
-			get
-			{
-				return this._Album1;
-			}
-			set
-			{
-				if ((this._Album1 != value))
-				{
-					this.OnAlbum1Changing(value);
-					this.SendPropertyChanging();
-					this._Album1 = value;
-					this.SendPropertyChanged("Album1");
-					this.OnAlbum1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Album2", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Album2
-		{
-			get
-			{
-				return this._Album2;
-			}
-			set
-			{
-				if ((this._Album2 != value))
-				{
-					this.OnAlbum2Changing(value);
-					this.SendPropertyChanging();
-					this._Album2 = value;
-					this.SendPropertyChanged("Album2");
-					this.OnAlbum2Changed();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
@@ -2080,6 +2068,46 @@ namespace Model
 					this._Score = value;
 					this.SendPropertyChanged("Score");
 					this.OnScoreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlbumId_1", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid AlbumId_1
+		{
+			get
+			{
+				return this._AlbumId_1;
+			}
+			set
+			{
+				if ((this._AlbumId_1 != value))
+				{
+					this.OnAlbumId_1Changing(value);
+					this.SendPropertyChanging();
+					this._AlbumId_1 = value;
+					this.SendPropertyChanged("AlbumId_1");
+					this.OnAlbumId_1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlbumId_2", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid AlbumId_2
+		{
+			get
+			{
+				return this._AlbumId_2;
+			}
+			set
+			{
+				if ((this._AlbumId_2 != value))
+				{
+					this.OnAlbumId_2Changing(value);
+					this.SendPropertyChanging();
+					this._AlbumId_2 = value;
+					this.SendPropertyChanged("AlbumId_2");
+					this.OnAlbumId_2Changed();
 				}
 			}
 		}
@@ -2111,67 +2139,27 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Artist2;
-		
-		private int _Artist1;
-		
 		private string _Score;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnArtist2Changing(int value);
-	partial void OnArtist2Changed();
-	partial void OnArtist1Changing(int value);
-	partial void OnArtist1Changed();
-	partial void OnScoreChanging(string value);
-	partial void OnScoreChanged();
-	#endregion
+		private System.Guid _ArtistId_1;
+		
+		private System.Guid _ArtistId_2;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnScoreChanging(string value);
+    partial void OnScoreChanged();
+    partial void OnArtistId_1Changing(System.Guid value);
+    partial void OnArtistId_1Changed();
+    partial void OnArtistId_2Changing(System.Guid value);
+    partial void OnArtistId_2Changed();
+    #endregion
 		
 		public SimilarArtist()
 		{
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Artist2", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Artist2
-		{
-			get
-			{
-				return this._Artist2;
-			}
-			set
-			{
-				if ((this._Artist2 != value))
-				{
-					this.OnArtist2Changing(value);
-					this.SendPropertyChanging();
-					this._Artist2 = value;
-					this.SendPropertyChanged("Artist2");
-					this.OnArtist2Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Artist1", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Artist1
-		{
-			get
-			{
-				return this._Artist1;
-			}
-			set
-			{
-				if ((this._Artist1 != value))
-				{
-					this.OnArtist1Changing(value);
-					this.SendPropertyChanging();
-					this._Artist1 = value;
-					this.SendPropertyChanged("Artist1");
-					this.OnArtist1Changed();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
@@ -2190,6 +2178,46 @@ namespace Model
 					this._Score = value;
 					this.SendPropertyChanged("Score");
 					this.OnScoreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArtistId_1", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ArtistId_1
+		{
+			get
+			{
+				return this._ArtistId_1;
+			}
+			set
+			{
+				if ((this._ArtistId_1 != value))
+				{
+					this.OnArtistId_1Changing(value);
+					this.SendPropertyChanging();
+					this._ArtistId_1 = value;
+					this.SendPropertyChanged("ArtistId_1");
+					this.OnArtistId_1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArtistId_2", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid ArtistId_2
+		{
+			get
+			{
+				return this._ArtistId_2;
+			}
+			set
+			{
+				if ((this._ArtistId_2 != value))
+				{
+					this.OnArtistId_2Changing(value);
+					this.SendPropertyChanging();
+					this._ArtistId_2 = value;
+					this.SendPropertyChanged("ArtistId_2");
+					this.OnArtistId_2Changed();
 				}
 			}
 		}
@@ -2221,67 +2249,27 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Track1;
-		
-		private int _Track2;
-		
 		private string _Score;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnTrack1Changing(int value);
-	partial void OnTrack1Changed();
-	partial void OnTrack2Changing(int value);
-	partial void OnTrack2Changed();
-	partial void OnScoreChanging(string value);
-	partial void OnScoreChanged();
-	#endregion
+		private System.Guid _TrackId_1;
+		
+		private System.Guid _TrackId_2;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnScoreChanging(string value);
+    partial void OnScoreChanged();
+    partial void OnTrackId_1Changing(System.Guid value);
+    partial void OnTrackId_1Changed();
+    partial void OnTrackId_2Changing(System.Guid value);
+    partial void OnTrackId_2Changed();
+    #endregion
 		
 		public SimilarTrack()
 		{
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Track1", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Track1
-		{
-			get
-			{
-				return this._Track1;
-			}
-			set
-			{
-				if ((this._Track1 != value))
-				{
-					this.OnTrack1Changing(value);
-					this.SendPropertyChanging();
-					this._Track1 = value;
-					this.SendPropertyChanged("Track1");
-					this.OnTrack1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Track2", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Track2
-		{
-			get
-			{
-				return this._Track2;
-			}
-			set
-			{
-				if ((this._Track2 != value))
-				{
-					this.OnTrack2Changing(value);
-					this.SendPropertyChanging();
-					this._Track2 = value;
-					this.SendPropertyChanged("Track2");
-					this.OnTrack2Changed();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
@@ -2300,6 +2288,46 @@ namespace Model
 					this._Score = value;
 					this.SendPropertyChanged("Score");
 					this.OnScoreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackId_1", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid TrackId_1
+		{
+			get
+			{
+				return this._TrackId_1;
+			}
+			set
+			{
+				if ((this._TrackId_1 != value))
+				{
+					this.OnTrackId_1Changing(value);
+					this.SendPropertyChanging();
+					this._TrackId_1 = value;
+					this.SendPropertyChanged("TrackId_1");
+					this.OnTrackId_1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackId_2", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid TrackId_2
+		{
+			get
+			{
+				return this._TrackId_2;
+			}
+			set
+			{
+				if ((this._TrackId_2 != value))
+				{
+					this.OnTrackId_2Changing(value);
+					this.SendPropertyChanging();
+					this._TrackId_2 = value;
+					this.SendPropertyChanged("TrackId_2");
+					this.OnTrackId_2Changed();
 				}
 			}
 		}
@@ -2331,27 +2359,27 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _TrackId;
-		
-		private int _GenreId;
-		
 		private int _Score;
+		
+		private System.Guid _TrackId;
+		
+		private System.Guid _GenreId;
 		
 		private EntityRef<Genre> _Genre;
 		
 		private EntityRef<Track> _Track;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnTrackIdChanging(int value);
-	partial void OnTrackIdChanged();
-	partial void OnGenreIdChanging(int value);
-	partial void OnGenreIdChanged();
-	partial void OnScoreChanging(int value);
-	partial void OnScoreChanged();
-	#endregion
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnScoreChanging(int value);
+    partial void OnScoreChanged();
+    partial void OnTrackIdChanging(System.Guid value);
+    partial void OnTrackIdChanged();
+    partial void OnGenreIdChanging(System.Guid value);
+    partial void OnGenreIdChanged();
+    #endregion
 		
 		public TrackGenre()
 		{
@@ -2360,8 +2388,28 @@ namespace Model
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int TrackId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int NOT NULL")]
+		public int Score
+		{
+			get
+			{
+				return this._Score;
+			}
+			set
+			{
+				if ((this._Score != value))
+				{
+					this.OnScoreChanging(value);
+					this.SendPropertyChanging();
+					this._Score = value;
+					this.SendPropertyChanged("Score");
+					this.OnScoreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid TrackId
 		{
 			get
 			{
@@ -2384,8 +2432,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GenreId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int GenreId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GenreId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid GenreId
 		{
 			get
 			{
@@ -2404,26 +2452,6 @@ namespace Model
 					this._GenreId = value;
 					this.SendPropertyChanged("GenreId");
 					this.OnGenreIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int NOT NULL")]
-		public int Score
-		{
-			get
-			{
-				return this._Score;
-			}
-			set
-			{
-				if ((this._Score != value))
-				{
-					this.OnScoreChanging(value);
-					this.SendPropertyChanging();
-					this._Score = value;
-					this.SendPropertyChanged("Score");
-					this.OnScoreChanged();
 				}
 			}
 		}
@@ -2455,7 +2483,7 @@ namespace Model
 					}
 					else
 					{
-						this._GenreId = default(int);
+						this._GenreId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Genre");
 				}
@@ -2489,7 +2517,7 @@ namespace Model
 					}
 					else
 					{
-						this._TrackId = default(int);
+						this._TrackId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Track");
 				}
@@ -2523,8 +2551,6 @@ namespace Model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
-		
 		private string _Name;
 		
 		private string _TrackNumber;
@@ -2547,10 +2573,6 @@ namespace Model
 		
 		private System.Nullable<int> _Year;
 		
-		private System.Nullable<int> _Artist_Id;
-		
-		private System.Nullable<int> _Album_Id;
-		
 		private System.Nullable<System.Guid> _MBID;
 		
 		private System.Nullable<long> _LastFMListeners;
@@ -2563,6 +2585,14 @@ namespace Model
 		
 		private System.Nullable<int> _Score;
 		
+		private System.Guid _Id;
+		
+		private System.Nullable<System.Guid> _ArtistId;
+		
+		private System.Nullable<System.Guid> _AlbumId;
+		
+		private System.Nullable<System.Guid> _MediaFileId;
+		
 		private EntitySet<MediaFile> _MediaFiles;
 		
 		private EntitySet<Play> _Plays;
@@ -2573,51 +2603,55 @@ namespace Model
 		
 		private EntityRef<Artist> _Artist;
 		
-	#region Extensibility Method Definitions
-	partial void OnLoaded();
-	partial void OnValidate(System.Data.Linq.ChangeAction action);
-	partial void OnCreated();
-	partial void OnIdChanging(int value);
-	partial void OnIdChanged();
-	partial void OnNameChanging(string value);
-	partial void OnNameChanged();
-	partial void OnTrackNumberChanging(string value);
-	partial void OnTrackNumberChanged();
-	partial void OnDurationChanging(System.Nullable<int> value);
-	partial void OnDurationChanged();
-	partial void OnBPMChanging(System.Nullable<int> value);
-	partial void OnBPMChanged();
-	partial void OnBitRateChanging(System.Nullable<int> value);
-	partial void OnBitRateChanged();
-	partial void OnCommentsChanging(string value);
-	partial void OnCommentsChanged();
-	partial void OnComposerChanging(string value);
-	partial void OnComposerChanged();
-	partial void OnDiscNumberChanging(System.Nullable<int> value);
-	partial void OnDiscNumberChanged();
-	partial void OnReleaseDateChanging(System.Nullable<System.DateTime> value);
-	partial void OnReleaseDateChanged();
-	partial void OnSampleRateChanging(System.Nullable<int> value);
-	partial void OnSampleRateChanged();
-	partial void OnYearChanging(System.Nullable<int> value);
-	partial void OnYearChanged();
-	partial void OnArtist_IdChanging(System.Nullable<int> value);
-	partial void OnArtist_IdChanged();
-	partial void OnAlbum_IdChanging(System.Nullable<int> value);
-	partial void OnAlbum_IdChanged();
-	partial void OnMBIDChanging(System.Nullable<System.Guid> value);
-	partial void OnMBIDChanged();
-	partial void OnLastFMListenersChanging(System.Nullable<long> value);
-	partial void OnLastFMListenersChanged();
-	partial void OnLastFMPlaysChanging(System.Nullable<long> value);
-	partial void OnLastFMPlaysChanged();
-	partial void OnDescriptionChanging(string value);
-	partial void OnDescriptionChanged();
-	partial void OnRatingChanging(System.Nullable<int> value);
-	partial void OnRatingChanged();
-	partial void OnScoreChanging(System.Nullable<int> value);
-	partial void OnScoreChanged();
-	#endregion
+		private EntityRef<MediaFile> _MediaFile;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnTrackNumberChanging(string value);
+    partial void OnTrackNumberChanged();
+    partial void OnDurationChanging(System.Nullable<int> value);
+    partial void OnDurationChanged();
+    partial void OnBPMChanging(System.Nullable<int> value);
+    partial void OnBPMChanged();
+    partial void OnBitRateChanging(System.Nullable<int> value);
+    partial void OnBitRateChanged();
+    partial void OnCommentsChanging(string value);
+    partial void OnCommentsChanged();
+    partial void OnComposerChanging(string value);
+    partial void OnComposerChanged();
+    partial void OnDiscNumberChanging(System.Nullable<int> value);
+    partial void OnDiscNumberChanged();
+    partial void OnReleaseDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnReleaseDateChanged();
+    partial void OnSampleRateChanging(System.Nullable<int> value);
+    partial void OnSampleRateChanged();
+    partial void OnYearChanging(System.Nullable<int> value);
+    partial void OnYearChanged();
+    partial void OnMBIDChanging(System.Nullable<System.Guid> value);
+    partial void OnMBIDChanged();
+    partial void OnLastFMListenersChanging(System.Nullable<long> value);
+    partial void OnLastFMListenersChanged();
+    partial void OnLastFMPlaysChanging(System.Nullable<long> value);
+    partial void OnLastFMPlaysChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnRatingChanging(System.Nullable<int> value);
+    partial void OnRatingChanged();
+    partial void OnScoreChanging(System.Nullable<int> value);
+    partial void OnScoreChanged();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnArtistIdChanging(System.Nullable<System.Guid> value);
+    partial void OnArtistIdChanged();
+    partial void OnAlbumIdChanging(System.Nullable<System.Guid> value);
+    partial void OnAlbumIdChanged();
+    partial void OnMediaFileIdChanging(System.Nullable<System.Guid> value);
+    partial void OnMediaFileIdChanged();
+    #endregion
 		
 		public Track()
 		{
@@ -2626,27 +2660,8 @@ namespace Model
 			this._TrackGenres = new EntitySet<TrackGenre>(new Action<TrackGenre>(this.attach_TrackGenres), new Action<TrackGenre>(this.detach_TrackGenres));
 			this._Album = default(EntityRef<Album>);
 			this._Artist = default(EntityRef<Artist>);
+			this._MediaFile = default(EntityRef<MediaFile>);
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
@@ -2869,54 +2884,6 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Artist_Id", DbType="Int")]
-		public System.Nullable<int> Artist_Id
-		{
-			get
-			{
-				return this._Artist_Id;
-			}
-			set
-			{
-				if ((this._Artist_Id != value))
-				{
-					if (this._Artist.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnArtist_IdChanging(value);
-					this.SendPropertyChanging();
-					this._Artist_Id = value;
-					this.SendPropertyChanged("Artist_Id");
-					this.OnArtist_IdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Album_Id", DbType="Int")]
-		public System.Nullable<int> Album_Id
-		{
-			get
-			{
-				return this._Album_Id;
-			}
-			set
-			{
-				if ((this._Album_Id != value))
-				{
-					if (this._Album.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnAlbum_IdChanging(value);
-					this.SendPropertyChanging();
-					this._Album_Id = value;
-					this.SendPropertyChanged("Album_Id");
-					this.OnAlbum_IdChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MBID", DbType="UniqueIdentifier")]
 		public System.Nullable<System.Guid> MBID
 		{
@@ -3037,7 +3004,99 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_MediaFile", Storage="_MediaFiles", ThisKey="Id", OtherKey="Tracks_Id")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArtistId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> ArtistId
+		{
+			get
+			{
+				return this._ArtistId;
+			}
+			set
+			{
+				if ((this._ArtistId != value))
+				{
+					if (this._Artist.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnArtistIdChanging(value);
+					this.SendPropertyChanging();
+					this._ArtistId = value;
+					this.SendPropertyChanged("ArtistId");
+					this.OnArtistIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlbumId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> AlbumId
+		{
+			get
+			{
+				return this._AlbumId;
+			}
+			set
+			{
+				if ((this._AlbumId != value))
+				{
+					if (this._Album.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAlbumIdChanging(value);
+					this.SendPropertyChanging();
+					this._AlbumId = value;
+					this.SendPropertyChanged("AlbumId");
+					this.OnAlbumIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MediaFileId", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> MediaFileId
+		{
+			get
+			{
+				return this._MediaFileId;
+			}
+			set
+			{
+				if ((this._MediaFileId != value))
+				{
+					if (this._MediaFile.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMediaFileIdChanging(value);
+					this.SendPropertyChanging();
+					this._MediaFileId = value;
+					this.SendPropertyChanged("MediaFileId");
+					this.OnMediaFileIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_MediaFile", Storage="_MediaFiles", ThisKey="Id", OtherKey="TrackId")]
 		public EntitySet<MediaFile> MediaFiles
 		{
 			get
@@ -3050,7 +3109,7 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_Play", Storage="_Plays", ThisKey="Id", OtherKey="Track_Id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_Play", Storage="_Plays", ThisKey="Id", OtherKey="TrackId")]
 		public EntitySet<Play> Plays
 		{
 			get
@@ -3076,7 +3135,7 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Track", Storage="_Album", ThisKey="Album_Id", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Track", Storage="_Album", ThisKey="AlbumId", OtherKey="Id", IsForeignKey=true)]
 		public Album Album
 		{
 			get
@@ -3099,18 +3158,18 @@ namespace Model
 					if ((value != null))
 					{
 						value.Tracks.Add(this);
-						this._Album_Id = value.Id;
+						this._AlbumId = value.Id;
 					}
 					else
 					{
-						this._Album_Id = default(Nullable<int>);
+						this._AlbumId = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Album");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Track", Storage="_Artist", ThisKey="Artist_Id", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Track", Storage="_Artist", ThisKey="ArtistId", OtherKey="Id", IsForeignKey=true)]
 		public Artist Artist
 		{
 			get
@@ -3133,13 +3192,47 @@ namespace Model
 					if ((value != null))
 					{
 						value.Tracks.Add(this);
-						this._Artist_Id = value.Id;
+						this._ArtistId = value.Id;
 					}
 					else
 					{
-						this._Artist_Id = default(Nullable<int>);
+						this._ArtistId = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Artist");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MediaFile_Track", Storage="_MediaFile", ThisKey="MediaFileId", OtherKey="Id", IsForeignKey=true)]
+		public MediaFile MediaFile
+		{
+			get
+			{
+				return this._MediaFile.Entity;
+			}
+			set
+			{
+				MediaFile previousValue = this._MediaFile.Entity;
+				if (((previousValue != value) 
+							|| (this._MediaFile.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._MediaFile.Entity = null;
+						previousValue.Tracks.Remove(this);
+					}
+					this._MediaFile.Entity = value;
+					if ((value != null))
+					{
+						value.Tracks.Add(this);
+						this._MediaFileId = value.Id;
+					}
+					else
+					{
+						this._MediaFileId = default(Nullable<System.Guid>);
+					}
+					this.SendPropertyChanged("MediaFile");
 				}
 			}
 		}

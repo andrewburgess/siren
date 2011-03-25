@@ -1,4 +1,5 @@
-﻿using Controller.Interfaces;
+﻿using System;
+using Controller.Interfaces;
 using Model;
 
 namespace Controller
@@ -12,6 +13,12 @@ namespace Controller
 		{
 			View = view;
 			Repository = DataAccessContext.GetRepository();
+		}
+
+		public void RescanLibrary()
+		{
+			var scanner = new RepositoryScanner();
+			scanner.RunWorkerAsync();
 		}
 	}
 }
