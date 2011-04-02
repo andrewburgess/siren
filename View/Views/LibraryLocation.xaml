@@ -6,9 +6,9 @@
 	mc:Ignorable="d"
 	x:Class="View.Views.LibraryLocation"
 	x:Name="UserControl"
-	d:DesignWidth="640" d:DesignHeight="480" Height="64" Width="600" MaxWidth="600" MinWidth="600">
+	d:DesignWidth="640" d:DesignHeight="480" Height="45" Width="600" MaxWidth="600" MinWidth="600">
 
-	<DockPanel x:Name="LayoutRoot" Height="48" >
+	<DockPanel x:Name="LayoutRoot" Height="45" >
 		<Button x:Name="RemoveLocationButton" Content="Remove" Width="75" Margin="10,10,20,10">
 			<Button.Background>
 				<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">

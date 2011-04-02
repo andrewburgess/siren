@@ -1,15 +1,15 @@
-﻿<UserControl
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Model="clr-namespace:Model;assembly=Model"
+	x:Class="View.Views.LibraryControl"
 	mc:Ignorable="d"
-	xmlns:local="clr-namespace:View"
-	x:Class="View.LibraryControl"
 	d:DesignWidth="640" d:DesignHeight="480">
-	<UserControl.Resources>
-		<local:LibraryControlModel x:Key="LibraryControlModelDataSource" />
-	</UserControl.Resources>
 
-	<Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource LibraryControlModelDataSource}}"/>
+	<DockPanel x:Name="LayoutRoot">
+		<ListView x:Name="LibraryList" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Loaded="LibraryListLoaded" LayoutUpdated="LibraryList_LayoutUpdated">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn/>
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</DockPanel>
 </UserControl>

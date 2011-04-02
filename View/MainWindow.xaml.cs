@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Controller;
 using Controller.Interfaces;
+using View.Views;
 
 namespace View
 {
@@ -15,6 +17,7 @@ namespace View
 		{
 			InitializeComponent();
 			Controller = new SirenController(this);
+			Controller.InitializeView();
 		}
 
 		private void MenuLibraryManageClick(object sender, RoutedEventArgs e)
@@ -26,6 +29,11 @@ namespace View
 		private void MenuLibraryRescanClick(object sender, RoutedEventArgs e)
 		{
 			Controller.RescanLibrary();
+		}
+
+		public void LoadLibraryView()
+		{
+			ContentPanel.Children.Add(new LibraryControl());
 		}
 	}
 }

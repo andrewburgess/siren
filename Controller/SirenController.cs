@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Controller.Interfaces;
 using Model;
 
@@ -19,6 +20,11 @@ namespace Controller
 		{
 			var scanner = new RepositoryScanner();
 			scanner.RunWorkerAsync();
+		}
+
+		public void InitializeView()
+		{
+			View.LoadLibraryView();
 		}
 	}
 }

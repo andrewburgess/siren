@@ -49,7 +49,7 @@ namespace Controller
 					Track track;
 					if (mediaFile != null)
 					{
-						if (mediaFile.LastModified < (new FileInfo(mediaFile.FullPath)).LastWriteTime.AddMinutes(-5))
+						if (mediaFile.LastModified < (new FileInfo(mediaFile.FullPath)).LastWriteTime.AddMinutes(-1))
 						{
 							track = Repository.Tracks.First(x => x.Id == mediaFile.TrackId);
 							//Update Track metadata
@@ -94,9 +94,9 @@ namespace Controller
 		{
 			var file = TagLib.File.Create(path);
 			track.Name = file.Tag.Title;
-			track.TrackNumber = (int?) file.Tag.Track;
+			track.TrackNumber = (int) file.Tag.Track;
 			track.Duration = (int) file.Properties.Duration.TotalSeconds;
-			track.BPM = (int?) file.Tag.BeatsPerMinute;
+			track.BPM = (int) file.Tag.BeatsPerMinute;
 			track.BitRate = file.Properties.AudioBitrate;
 			track.Comments = file.Tag.Comment;
 			track.Composer = "";
@@ -105,9 +105,9 @@ namespace Controller
 				track.Composer += composer + "; ";
 			}
 			track.Composer += file.Tag.Composers.Count() > 0 ? file.Tag.Composers.Last() : "";
-			track.DiscNumber = (int?) file.Tag.Disc;
+			track.DiscNumber = (int) file.Tag.Disc;
 			track.SampleRate = file.Properties.AudioSampleRate;
-			track.Year = (int?) file.Tag.Year;
+			track.Year = (int) file.Tag.Year;
 			track.MBID = string.IsNullOrEmpty(file.Tag.MusicBrainzTrackId) ? (Guid?)null : new Guid(file.Tag.MusicBrainzTrackId);
 
 			var artistId = GetArtist(file.Tag);

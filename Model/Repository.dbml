@@ -55,6 +55,16 @@
       <Association Name="FK_Genres_TrackGenres" Member="TrackGenres" ThisKey="Id" OtherKey="GenreId" Type="TrackGenre" DeleteRule="NO ACTION" />
     </Type>
   </Table>
+  <Table Name="Images">
+    <Type Name="Image">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LinkedId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ImageData" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Size" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Width" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Height" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="MediaFiles">
     <Type Name="MediaFile">
       <Column Name="FullPath" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
@@ -120,25 +130,25 @@
   <Table Name="Tracks">
     <Type Name="Track">
       <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Duration" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BPM" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BitRate" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Comments" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
-      <Column Name="Composer" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
-      <Column Name="DiscNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BPM" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BitRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Comments" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="Composer" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="DiscNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ReleaseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="SampleRate" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Year" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SampleRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MBID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="LastFMListeners" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="LastFMPlays" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LastFMListeners" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="LastFMPlays" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="Rating" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Score" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Rating" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Score" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ArtistId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="AlbumId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Column Name="TrackNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ArtistId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="AlbumId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="TrackNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="FK_Albums_Tracks" Member="Album" ThisKey="AlbumId" OtherKey="Id" Type="Album" IsForeignKey="true" />
       <Association Name="FK_Artists_Tracks" Member="Artist" ThisKey="ArtistId" OtherKey="Id" Type="Artist" IsForeignKey="true" />
       <Association Name="FK_Tracks_MediaFiles" Member="MediaFiles" ThisKey="Id" OtherKey="TrackId" Type="MediaFile" DeleteRule="NO ACTION" />

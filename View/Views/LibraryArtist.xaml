@@ -1,0 +1,46 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="View.Views.LibraryArtist"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480" Height="120">
+
+	<DockPanel x:Name="LayoutRoot">
+		<DockPanel.Resources>
+			<Image x:Key="img">
+				<Image.OpacityMask>
+					<LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" >
+						<GradientStop Color="#00000000" Offset="0"/>
+						<GradientStop Color="#FF000000" Offset="0.8"/>
+						<GradientStop Color="#00000000" Offset="0.3"/>
+					</LinearGradientBrush>
+				</Image.OpacityMask>
+			</Image>
+		</DockPanel.Resources>
+		<DockPanel.Background>
+			<VisualBrush Visual="{DynamicResource img}" AlignmentX="Left" AlignmentY="Center" Stretch="Uniform" />
+		</DockPanel.Background>
+		<DockPanel x:Name="ArtistData" LastChildFill="False" DockPanel.Dock="Right" MinWidth="125" HorizontalAlignment="Right" MaxWidth="250" Width="125">
+			<Label x:Name="AlbumCount" Content="" DockPanel.Dock="Top" Margin="0,1"/>
+			<Label x:Name="TrackCount" Content="" DockPanel.Dock="Top" Margin="0,1"/>
+			<Label x:Name="Score" Content="" DockPanel.Dock="Bottom" Margin="0,1"/>
+			<Label x:Name="PlayCount" Content="" DockPanel.Dock="Bottom" Margin="0,1"/>
+		</DockPanel>
+		<Label x:Name="ArtistNameParent" FontSize="26.667" FontWeight="Bold" Margin="90,0,0,0" DockPanel.Dock="Top">
+			<Label.Effect>
+				<DropShadowEffect Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}" ShadowDepth="0"/>
+			</Label.Effect>
+			<TextBlock x:Name="ArtistName" TextWrapping="Wrap" FontSize="21.333"/>
+		</Label>
+		<Label x:Name="ArtistDescriptionParent" Margin="90,0,0,0">
+			<TextBlock x:Name="ArtistDescription" TextWrapping="Wrap" FontSize="10.667" FontWeight="Bold" Text="">
+				<TextBlock.Effect>
+					<DropShadowEffect ShadowDepth="0" RenderingBias="Quality" Direction="0" BlurRadius="2" Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}"/>
+				</TextBlock.Effect>
+			</TextBlock>
+		</Label>
+	</DockPanel>
+</UserControl>

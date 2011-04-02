@@ -44,6 +44,9 @@ namespace Model
     partial void InsertGenre(Genre instance);
     partial void UpdateGenre(Genre instance);
     partial void DeleteGenre(Genre instance);
+    partial void InsertImage(Image instance);
+    partial void UpdateImage(Image instance);
+    partial void DeleteImage(Image instance);
     partial void InsertMediaFile(MediaFile instance);
     partial void UpdateMediaFile(MediaFile instance);
     partial void DeleteMediaFile(MediaFile instance);
@@ -131,6 +134,14 @@ namespace Model
 			get
 			{
 				return this.GetTable<Genre>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Image> Images
+		{
+			get
+			{
+				return this.GetTable<Image>();
 			}
 		}
 		
@@ -1346,6 +1357,188 @@ namespace Model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Images")]
+	public partial class Image : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id;
+		
+		private System.Guid _LinkedId;
+		
+		private System.Data.Linq.Binary _ImageData;
+		
+		private int _Size;
+		
+		private int _Width;
+		
+		private int _Height;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnLinkedIdChanging(System.Guid value);
+    partial void OnLinkedIdChanged();
+    partial void OnImageDataChanging(System.Data.Linq.Binary value);
+    partial void OnImageDataChanged();
+    partial void OnSizeChanging(int value);
+    partial void OnSizeChanged();
+    partial void OnWidthChanging(int value);
+    partial void OnWidthChanged();
+    partial void OnHeightChanging(int value);
+    partial void OnHeightChanged();
+    #endregion
+		
+		public Image()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LinkedId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid LinkedId
+		{
+			get
+			{
+				return this._LinkedId;
+			}
+			set
+			{
+				if ((this._LinkedId != value))
+				{
+					this.OnLinkedIdChanging(value);
+					this.SendPropertyChanging();
+					this._LinkedId = value;
+					this.SendPropertyChanged("LinkedId");
+					this.OnLinkedIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageData", DbType="Image NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary ImageData
+		{
+			get
+			{
+				return this._ImageData;
+			}
+			set
+			{
+				if ((this._ImageData != value))
+				{
+					this.OnImageDataChanging(value);
+					this.SendPropertyChanging();
+					this._ImageData = value;
+					this.SendPropertyChanged("ImageData");
+					this.OnImageDataChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Size", DbType="Int NOT NULL")]
+		public int Size
+		{
+			get
+			{
+				return this._Size;
+			}
+			set
+			{
+				if ((this._Size != value))
+				{
+					this.OnSizeChanging(value);
+					this.SendPropertyChanging();
+					this._Size = value;
+					this.SendPropertyChanged("Size");
+					this.OnSizeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Width", DbType="Int NOT NULL")]
+		public int Width
+		{
+			get
+			{
+				return this._Width;
+			}
+			set
+			{
+				if ((this._Width != value))
+				{
+					this.OnWidthChanging(value);
+					this.SendPropertyChanging();
+					this._Width = value;
+					this.SendPropertyChanged("Width");
+					this.OnWidthChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Height", DbType="Int NOT NULL")]
+		public int Height
+		{
+			get
+			{
+				return this._Height;
+			}
+			set
+			{
+				if ((this._Height != value))
+				{
+					this.OnHeightChanging(value);
+					this.SendPropertyChanging();
+					this._Height = value;
+					this.SendPropertyChanged("Height");
+					this.OnHeightChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="MediaFiles")]
 	public partial class MediaFile : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2525,43 +2718,43 @@ namespace Model
 		
 		private string _Name;
 		
-		private System.Nullable<int> _Duration;
+		private int _Duration;
 		
-		private System.Nullable<int> _BPM;
+		private int _BPM;
 		
-		private System.Nullable<int> _BitRate;
+		private int _BitRate;
 		
 		private string _Comments;
 		
 		private string _Composer;
 		
-		private System.Nullable<int> _DiscNumber;
+		private int _DiscNumber;
 		
 		private System.Nullable<System.DateTime> _ReleaseDate;
 		
-		private System.Nullable<int> _SampleRate;
+		private int _SampleRate;
 		
-		private System.Nullable<int> _Year;
+		private int _Year;
 		
 		private System.Nullable<System.Guid> _MBID;
 		
-		private System.Nullable<long> _LastFMListeners;
+		private long _LastFMListeners;
 		
-		private System.Nullable<long> _LastFMPlays;
+		private long _LastFMPlays;
 		
 		private string _Description;
 		
-		private System.Nullable<int> _Rating;
+		private int _Rating;
 		
-		private System.Nullable<int> _Score;
+		private int _Score;
 		
 		private System.Guid _Id;
 		
-		private System.Nullable<System.Guid> _ArtistId;
+		private System.Guid _ArtistId;
 		
-		private System.Nullable<System.Guid> _AlbumId;
+		private System.Guid _AlbumId;
 		
-		private System.Nullable<int> _TrackNumber;
+		private int _TrackNumber;
 		
 		private EntitySet<MediaFile> _MediaFiles;
 		
@@ -2579,43 +2772,43 @@ namespace Model
     partial void OnCreated();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
-    partial void OnDurationChanging(System.Nullable<int> value);
+    partial void OnDurationChanging(int value);
     partial void OnDurationChanged();
-    partial void OnBPMChanging(System.Nullable<int> value);
+    partial void OnBPMChanging(int value);
     partial void OnBPMChanged();
-    partial void OnBitRateChanging(System.Nullable<int> value);
+    partial void OnBitRateChanging(int value);
     partial void OnBitRateChanged();
     partial void OnCommentsChanging(string value);
     partial void OnCommentsChanged();
     partial void OnComposerChanging(string value);
     partial void OnComposerChanged();
-    partial void OnDiscNumberChanging(System.Nullable<int> value);
+    partial void OnDiscNumberChanging(int value);
     partial void OnDiscNumberChanged();
     partial void OnReleaseDateChanging(System.Nullable<System.DateTime> value);
     partial void OnReleaseDateChanged();
-    partial void OnSampleRateChanging(System.Nullable<int> value);
+    partial void OnSampleRateChanging(int value);
     partial void OnSampleRateChanged();
-    partial void OnYearChanging(System.Nullable<int> value);
+    partial void OnYearChanging(int value);
     partial void OnYearChanged();
     partial void OnMBIDChanging(System.Nullable<System.Guid> value);
     partial void OnMBIDChanged();
-    partial void OnLastFMListenersChanging(System.Nullable<long> value);
+    partial void OnLastFMListenersChanging(long value);
     partial void OnLastFMListenersChanged();
-    partial void OnLastFMPlaysChanging(System.Nullable<long> value);
+    partial void OnLastFMPlaysChanging(long value);
     partial void OnLastFMPlaysChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
-    partial void OnRatingChanging(System.Nullable<int> value);
+    partial void OnRatingChanging(int value);
     partial void OnRatingChanged();
-    partial void OnScoreChanging(System.Nullable<int> value);
+    partial void OnScoreChanging(int value);
     partial void OnScoreChanged();
     partial void OnIdChanging(System.Guid value);
     partial void OnIdChanged();
-    partial void OnArtistIdChanging(System.Nullable<System.Guid> value);
+    partial void OnArtistIdChanging(System.Guid value);
     partial void OnArtistIdChanged();
-    partial void OnAlbumIdChanging(System.Nullable<System.Guid> value);
+    partial void OnAlbumIdChanging(System.Guid value);
     partial void OnAlbumIdChanged();
-    partial void OnTrackNumberChanging(System.Nullable<int> value);
+    partial void OnTrackNumberChanging(int value);
     partial void OnTrackNumberChanged();
     #endregion
 		
@@ -2649,8 +2842,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Duration", DbType="Int")]
-		public System.Nullable<int> Duration
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Duration", DbType="Int NOT NULL")]
+		public int Duration
 		{
 			get
 			{
@@ -2669,8 +2862,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BPM", DbType="Int")]
-		public System.Nullable<int> BPM
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BPM", DbType="Int NOT NULL")]
+		public int BPM
 		{
 			get
 			{
@@ -2689,8 +2882,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BitRate", DbType="Int")]
-		public System.Nullable<int> BitRate
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BitRate", DbType="Int NOT NULL")]
+		public int BitRate
 		{
 			get
 			{
@@ -2709,7 +2902,7 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comments", DbType="NVarChar(4000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comments", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
 		public string Comments
 		{
 			get
@@ -2729,7 +2922,7 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Composer", DbType="NVarChar(4000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Composer", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
 		public string Composer
 		{
 			get
@@ -2749,8 +2942,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiscNumber", DbType="Int")]
-		public System.Nullable<int> DiscNumber
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiscNumber", DbType="Int NOT NULL")]
+		public int DiscNumber
 		{
 			get
 			{
@@ -2789,8 +2982,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SampleRate", DbType="Int")]
-		public System.Nullable<int> SampleRate
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SampleRate", DbType="Int NOT NULL")]
+		public int SampleRate
 		{
 			get
 			{
@@ -2809,8 +3002,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Year", DbType="Int")]
-		public System.Nullable<int> Year
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Year", DbType="Int NOT NULL")]
+		public int Year
 		{
 			get
 			{
@@ -2849,8 +3042,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastFMListeners", DbType="BigInt")]
-		public System.Nullable<long> LastFMListeners
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastFMListeners", DbType="BigInt NOT NULL")]
+		public long LastFMListeners
 		{
 			get
 			{
@@ -2869,8 +3062,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastFMPlays", DbType="BigInt")]
-		public System.Nullable<long> LastFMPlays
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastFMPlays", DbType="BigInt NOT NULL")]
+		public long LastFMPlays
 		{
 			get
 			{
@@ -2909,8 +3102,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rating", DbType="Int")]
-		public System.Nullable<int> Rating
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rating", DbType="Int NOT NULL")]
+		public int Rating
 		{
 			get
 			{
@@ -2929,8 +3122,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int")]
-		public System.Nullable<int> Score
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int NOT NULL")]
+		public int Score
 		{
 			get
 			{
@@ -2969,8 +3162,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArtistId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> ArtistId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArtistId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid ArtistId
 		{
 			get
 			{
@@ -2993,8 +3186,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlbumId", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> AlbumId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AlbumId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid AlbumId
 		{
 			get
 			{
@@ -3017,8 +3210,8 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackNumber", DbType="Int")]
-		public System.Nullable<int> TrackNumber
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrackNumber", DbType="Int NOT NULL")]
+		public int TrackNumber
 		{
 			get
 			{
@@ -3103,7 +3296,7 @@ namespace Model
 					}
 					else
 					{
-						this._AlbumId = default(Nullable<System.Guid>);
+						this._AlbumId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Album");
 				}
@@ -3137,7 +3330,7 @@ namespace Model
 					}
 					else
 					{
-						this._ArtistId = default(Nullable<System.Guid>);
+						this._ArtistId = default(System.Guid);
 					}
 					this.SendPropertyChanged("Artist");
 				}

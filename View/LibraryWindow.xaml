@@ -7,10 +7,10 @@
 	Width="640" Height="350" WindowStyle="ToolWindow" MaxWidth="640" MaxHeight="350" MinWidth="640" MinHeight="350">
 
 	<DockPanel x:Name="LayoutRoot">
-		<ListView x:Name="RepositoryList" DockPanel.Dock="Top" Height="200" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
+		<ListView x:Name="RepositoryList" DockPanel.Dock="Top" Height="200" HorizontalContentAlignment="Stretch">
 			<ListView.View>
 				<GridView>
-					<GridViewColumn/>
+					<GridViewColumn Header="Locations"/>
 				</GridView>
 			</ListView.View>
 		</ListView>

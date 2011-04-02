@@ -2,5 +2,6 @@
 {
 	public interface IMainWindowView
 	{
+		void LoadLibraryView();
 	}
 }

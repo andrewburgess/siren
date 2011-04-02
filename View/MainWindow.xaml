@@ -30,9 +30,14 @@
 			<Button x:Name="PlayButton" Content="&gt;" Width="50" Margin="10,15,5,15"/>
 			<Button x:Name="NextButton" Content="&gt;&gt;" Width="50" Margin="10,20,5,20"/>
 		</StackPanel>
-        <DockPanel x:Name="ContentParentPanel" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top" Margin="0">
-        	<DockPanel x:Name="QueuePanel" LastChildFill="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="250" Height="Auto" DockPanel.Dock="Right" />
-        	<DockPanel x:Name="ContentPanel" LastChildFill="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="530" MinHeight="465" DockPanel.Dock="Top"/>
+        <DockPanel x:Name="ContentParentPanel" HorizontalAlignment="Stretch" Height="Auto" DockPanel.Dock="Top" Margin="0">
+			
+        	<DockPanel x:Name="QueuePanel" LastChildFill="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="300" Height="Auto" DockPanel.Dock="Right" >
+  
+        	</DockPanel>
+        	<DockPanel x:Name="ContentPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="480" MinHeight="465" DockPanel.Dock="Top">
+                
+        	</DockPanel>
 		</DockPanel>
 	</DockPanel>
 </Window>

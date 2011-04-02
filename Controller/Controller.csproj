@@ -45,7 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\LibraryControlController.cs" />
     <Compile Include="Controls\LibraryLocationController.cs" />
+    <Compile Include="Interfaces\Controls\ILibraryControl.cs" />
     <Compile Include="Interfaces\Controls\ILibraryLocationControl.cs" />
     <Compile Include="Interfaces\ILibraryManagerView.cs" />
     <Compile Include="Interfaces\IMainWindowView.cs" />
