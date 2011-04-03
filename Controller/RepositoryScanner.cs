@@ -4,13 +4,16 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Model;
-using TagLib.Id3v2;
-using TagLib.Mpeg;
-using File = TagLib.Mpeg.File;
 using Tag = TagLib.Tag;
 
 namespace Controller
 {
+	public class RepositoryScannerState
+	{
+		public string CurrentRepository { get; set; }
+		public string CurrentPath { get; set; }
+	}
+
 	public class RepositoryScanner : BackgroundWorker
 	{
 		private static readonly string[] FileExtensions = new[] {".mp3"};
@@ -34,7 +37,10 @@ namespace Controller
 
 		private void Scan(object sender, DoWorkEventArgs args)
 		{
+			
 			var repositories = Repository.MediaRepositories.Select(x => x);
+			var repositoryCount = 0;
+			var totalRepositories = repositories.Count();
 			foreach (var repository in repositories)
 			{
 				var paths = new List<string>();
@@ -43,8 +49,14 @@ namespace Controller
 				paths.AddRange(ScanSubDirectories(directory));
 				repository.LastScanned = DateTime.Now;
 
+				var pathCount = 0;
 				foreach (var path in paths)
 				{
+					pathCount += 1;
+					ReportProgress(CalculatePercentage(pathCount, paths.Count, repositoryCount, totalRepositories),
+					               new RepositoryScannerState
+					               	{CurrentPath = path, CurrentRepository = repository.Location});
+
 					var mediaFile = Repository.MediaFiles.FirstOrDefault(x => x.FullPath == path);
 					Track track;
 					if (mediaFile != null)
@@ -87,7 +99,17 @@ namespace Controller
 						Repository.SubmitChanges();					
 					}
 				}
+
+				repositoryCount += 1;
 			}
+		}
+
+		private static int CalculatePercentage(int pathCount, int totalPaths, int repositoryCount, int totalRepositories)
+		{
+			//var rP = (float) repositoryCount / totalRepositories;
+			//var irP = ((float) repositoryCount + 1) / totalRepositories;
+			var pP = (float) pathCount / totalPaths;
+			return (int) (pP * 100.0);
 		}
 
 		private void ProcessTrack(string path, ref Track track)

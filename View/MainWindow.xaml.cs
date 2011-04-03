@@ -13,6 +13,8 @@ namespace View
 	{
 		private SirenController Controller { get; set; }
 
+		private LibraryControl LibraryControl { get; set; }
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -28,12 +30,15 @@ namespace View
 
 		private void MenuLibraryRescanClick(object sender, RoutedEventArgs e)
 		{
-			Controller.RescanLibrary();
+			var window = new RepositoryScannerWindow();
+			window.ShowDialog();
+			LibraryControl.RefreshContent();
 		}
 
 		public void LoadLibraryView()
 		{
-			ContentPanel.Children.Add(new LibraryControl());
+			LibraryControl = new LibraryControl();
+			ContentPanel.Children.Add(LibraryControl);
 		}
 	}
 }

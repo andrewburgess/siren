@@ -57,5 +57,10 @@ namespace View.Views
 					item.Width = view.Columns[0].ActualWidth;
 			}
 		}
+
+		public void RefreshContent()
+		{
+			Controller.InitializeView();
+		}
 	}
 }

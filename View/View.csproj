@@ -75,6 +75,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RepositoryScannerWindow.xaml.cs">
+      <DependentUpon>RepositoryScannerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LibraryArtist.xaml.cs">
       <DependentUpon>LibraryArtist.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
     <Compile Include="Views\LibraryControl.xaml.cs">
       <DependentUpon>LibraryControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="RepositoryScannerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\LibraryArtist.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

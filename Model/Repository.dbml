@@ -41,6 +41,7 @@
       <Column Name="LastUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Bio" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Summary" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Association Name="FK_Artists_Albums" Member="Albums" ThisKey="Id" OtherKey="ArtistId" Type="Album" DeleteRule="NO ACTION" />
       <Association Name="FK_Artists_ArtistGenres" Member="ArtistGenres" ThisKey="Id" OtherKey="ArtistId" Type="ArtistGenre" DeleteRule="NO ACTION" />
       <Association Name="FK_Artists_Tracks" Member="Tracks" ThisKey="Id" OtherKey="ArtistId" Type="Track" DeleteRule="NO ACTION" />

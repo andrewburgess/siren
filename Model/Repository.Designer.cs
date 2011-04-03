@@ -917,6 +917,8 @@ namespace Model
 		
 		private System.Guid _Id;
 		
+		private string _Summary;
+		
 		private EntitySet<Album> _Albums;
 		
 		private EntitySet<ArtistGenre> _ArtistGenres;
@@ -941,6 +943,8 @@ namespace Model
     partial void OnBioChanged();
     partial void OnIdChanging(System.Guid value);
     partial void OnIdChanged();
+    partial void OnSummaryChanging(string value);
+    partial void OnSummaryChanged();
     #endregion
 		
 		public Artist()
@@ -1087,6 +1091,26 @@ namespace Model
 					this._Id = value;
 					this.SendPropertyChanged("Id");
 					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Summary", DbType="NVarChar(255)")]
+		public string Summary
+		{
+			get
+			{
+				return this._Summary;
+			}
+			set
+			{
+				if ((this._Summary != value))
+				{
+					this.OnSummaryChanging(value);
+					this.SendPropertyChanging();
+					this._Summary = value;
+					this.SendPropertyChanged("Summary");
+					this.OnSummaryChanged();
 				}
 			}
 		}

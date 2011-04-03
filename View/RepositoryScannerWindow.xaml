@@ -1,0 +1,14 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="View.RepositoryScannerWindow"
+	x:Name="Window"
+	Title="Scanning Progress"
+	Width="500" Height="200" WindowStyle="ToolWindow">
+
+	<DockPanel x:Name="LayoutRoot">
+		<Label x:Name="CurrentRepository" Content="" FontSize="13.333" Margin="10" DockPanel.Dock="Top"/>
+		<Label x:Name="CurrentPath" Content="" DockPanel.Dock="Top" Margin="10" FontSize="13.333"/>
+		<ProgressBar x:Name="Progress" Margin="10,15" DockPanel.Dock="Top"/>
+	</DockPanel>
+</Window>

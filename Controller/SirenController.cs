@@ -16,12 +16,6 @@ namespace Controller
 			Repository = DataAccessContext.GetRepository();
 		}
 
-		public void RescanLibrary()
-		{
-			var scanner = new RepositoryScanner();
-			scanner.RunWorkerAsync();
-		}
-
 		public void InitializeView()
 		{
 			View.LoadLibraryView();
