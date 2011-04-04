@@ -75,8 +75,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\LastFMSettingsControl.xaml.cs">
+      <DependentUpon>LastFMSettingsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryScannerWindow.xaml.cs">
       <DependentUpon>RepositoryScannerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LibraryArtist.xaml.cs">
       <DependentUpon>LibraryArtist.xaml</DependentUpon>
@@ -91,7 +97,15 @@
     <Compile Include="Views\LibraryControl.xaml.cs">
       <DependentUpon>LibraryControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\LastFMSettingsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="RepositoryScannerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

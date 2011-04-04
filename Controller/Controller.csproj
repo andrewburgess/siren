@@ -45,21 +45,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="Controls\LastFMSettingsController.cs" />
     <Compile Include="Controls\LibraryArtistController.cs" />
     <Compile Include="Controls\LibraryControlController.cs" />
     <Compile Include="Controls\LibraryLocationController.cs" />
+    <Compile Include="Interfaces\Controls\ILastFMSettingsControl.cs" />
     <Compile Include="Interfaces\Controls\ILibraryArtistControl.cs" />
     <Compile Include="Interfaces\Controls\ILibraryControl.cs" />
     <Compile Include="Interfaces\Controls\ILibraryLocationControl.cs" />
     <Compile Include="Interfaces\ILibraryManagerView.cs" />
     <Compile Include="Interfaces\IMainWindowView.cs" />
     <Compile Include="Interfaces\IRepositoryScannerWindow.cs" />
+    <Compile Include="Interfaces\ISettingsWindow.cs" />
     <Compile Include="LibraryManagerController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryScanner.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="RepositoryScannerController.cs" />
+    <Compile Include="SettingsController.cs" />
     <Compile Include="SirenController.cs" />
     <Compile Include="Utilities\StringFormats.cs" />
   </ItemGroup>

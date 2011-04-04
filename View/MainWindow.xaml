@@ -9,9 +9,9 @@
 		</LinearGradientBrush>
 	</Window.Background>
     <DockPanel x:Name="LayoutRoot" VerticalAlignment="Stretch">
-		<Menu x:Name="Menu" Height="19" Margin="0,0,8,0" DockPanel.Dock="Top">
+		<Menu x:Name="Menu" Height="24" Margin="0,0,8,0" DockPanel.Dock="Top">
 			<MenuItem x:Name="MenuFile" Header="File">
-				<MenuItem x:Name="MenuQuit" Header="Quit"/>
+				<MenuItem x:Name="MenuQuit" Header="Quit" Click="MenuQuitClick"/>
 			</MenuItem>
 			<MenuItem x:Name="MenuControl" Header="Control">
 				<MenuItem x:Name="MenuControlPlay" Header="Play"/>
@@ -22,6 +22,8 @@
 			<MenuItem x:Name="MenuLibrary" Header="Library">
 				<MenuItem x:Name="MenuLibraryManage" Header="Manage Library" Click="MenuLibraryManageClick"/>
 				<MenuItem x:Name="MenuLibraryRescan" Header="Rescan Library" Click="MenuLibraryRescanClick"/>
+				<Separator/>
+				<MenuItem x:Name="MenuLibrarySettings" Header="Settings" Click="MenuLibrarySettingsClick"/>
 			</MenuItem>
 			<MenuItem x:Name="MenuHelp" Header="Help"/>
 		</Menu>

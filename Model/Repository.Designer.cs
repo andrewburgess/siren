@@ -41,6 +41,9 @@ namespace Model
     partial void InsertArtist(Artist instance);
     partial void UpdateArtist(Artist instance);
     partial void DeleteArtist(Artist instance);
+    partial void InsertConfiguration(Configuration instance);
+    partial void UpdateConfiguration(Configuration instance);
+    partial void DeleteConfiguration(Configuration instance);
     partial void InsertGenre(Genre instance);
     partial void UpdateGenre(Genre instance);
     partial void DeleteGenre(Genre instance);
@@ -126,6 +129,14 @@ namespace Model
 			get
 			{
 				return this.GetTable<Artist>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Configuration> Configurations
+		{
+			get
+			{
+				return this.GetTable<Configuration>();
 			}
 		}
 		
@@ -422,6 +433,8 @@ namespace Model
 		
 		private System.Nullable<System.Guid> _ArtistId;
 		
+		private System.Nullable<System.DateTime> _LastUpdate;
+		
 		private EntitySet<AlbumGenre> _AlbumGenres;
 		
 		private EntitySet<Track> _Tracks;
@@ -446,6 +459,8 @@ namespace Model
     partial void OnIdChanged();
     partial void OnArtistIdChanging(System.Nullable<System.Guid> value);
     partial void OnArtistIdChanged();
+    partial void OnLastUpdateChanging(System.Nullable<System.DateTime> value);
+    partial void OnLastUpdateChanged();
     #endregion
 		
 		public Album()
@@ -596,6 +611,26 @@ namespace Model
 					this._ArtistId = value;
 					this.SendPropertyChanged("ArtistId");
 					this.OnArtistIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastUpdate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> LastUpdate
+		{
+			get
+			{
+				return this._LastUpdate;
+			}
+			set
+			{
+				if ((this._LastUpdate != value))
+				{
+					this.OnLastUpdateChanging(value);
+					this.SendPropertyChanging();
+					this._LastUpdate = value;
+					this.SendPropertyChanged("LastUpdate");
+					this.OnLastUpdateChanged();
 				}
 			}
 		}
@@ -1208,6 +1243,92 @@ namespace Model
 		{
 			this.SendPropertyChanging();
 			entity.Artist = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute()]
+	public partial class Configuration : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Key;
+		
+		private string _Value;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKeyChanging(string value);
+    partial void OnKeyChanged();
+    partial void OnValueChanging(string value);
+    partial void OnValueChanged();
+    #endregion
+		
+		public Configuration()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Key", DbType="NVarChar(255) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Key
+		{
+			get
+			{
+				return this._Key;
+			}
+			set
+			{
+				if ((this._Key != value))
+				{
+					this.OnKeyChanging(value);
+					this.SendPropertyChanging();
+					this._Key = value;
+					this.SendPropertyChanged("Key");
+					this.OnKeyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Value", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string Value
+		{
+			get
+			{
+				return this._Value;
+			}
+			set
+			{
+				if ((this._Value != value))
+				{
+					this.OnValueChanging(value);
+					this.SendPropertyChanging();
+					this._Value = value;
+					this.SendPropertyChanged("Value");
+					this.OnValueChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -2780,6 +2901,8 @@ namespace Model
 		
 		private int _TrackNumber;
 		
+		private System.Nullable<System.DateTime> _LastUpdate;
+		
 		private EntitySet<MediaFile> _MediaFiles;
 		
 		private EntitySet<Play> _Plays;
@@ -2834,6 +2957,8 @@ namespace Model
     partial void OnAlbumIdChanged();
     partial void OnTrackNumberChanging(int value);
     partial void OnTrackNumberChanged();
+    partial void OnLastUpdateChanging(System.Nullable<System.DateTime> value);
+    partial void OnLastUpdateChanged();
     #endregion
 		
 		public Track()
@@ -3250,6 +3375,26 @@ namespace Model
 					this._TrackNumber = value;
 					this.SendPropertyChanged("TrackNumber");
 					this.OnTrackNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastUpdate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> LastUpdate
+		{
+			get
+			{
+				return this._LastUpdate;
+			}
+			set
+			{
+				if ((this._LastUpdate != value))
+				{
+					this.OnLastUpdateChanging(value);
+					this.SendPropertyChanging();
+					this._LastUpdate = value;
+					this.SendPropertyChanged("LastUpdate");
+					this.OnLastUpdateChanged();
 				}
 			}
 		}

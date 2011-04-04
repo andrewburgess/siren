@@ -40,5 +40,15 @@ namespace View
 			LibraryControl = new LibraryControl();
 			ContentPanel.Children.Add(LibraryControl);
 		}
+
+		private void MenuLibrarySettingsClick(object sender, RoutedEventArgs e)
+		{
+			(new SettingsWindow()).ShowDialog();
+		}
+
+		private void MenuQuitClick(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
 	}
 }
