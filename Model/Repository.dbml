@@ -42,7 +42,7 @@
       <Column Name="LastUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Bio" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Summary" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Summary" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="FK_Artists_Albums" Member="Albums" ThisKey="Id" OtherKey="ArtistId" Type="Album" DeleteRule="NO ACTION" />
       <Association Name="FK_Artists_ArtistGenres" Member="ArtistGenres" ThisKey="Id" OtherKey="ArtistId" Type="ArtistGenre" DeleteRule="NO ACTION" />
       <Association Name="FK_Artists_Tracks" Member="Tracks" ThisKey="Id" OtherKey="ArtistId" Type="Track" DeleteRule="NO ACTION" />
@@ -141,7 +141,7 @@
       <Column Name="Duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BPM" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BitRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Comments" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="Comments" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
       <Column Name="Composer" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
       <Column Name="DiscNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ReleaseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -158,6 +158,7 @@
       <Column Name="AlbumId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="TrackNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="LastUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Genre" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Association Name="FK_Albums_Tracks" Member="Album" ThisKey="AlbumId" OtherKey="Id" Type="Album" IsForeignKey="true" />
       <Association Name="FK_Artists_Tracks" Member="Artist" ThisKey="ArtistId" OtherKey="Id" Type="Artist" IsForeignKey="true" />
       <Association Name="FK_Tracks_MediaFiles" Member="MediaFiles" ThisKey="Id" OtherKey="TrackId" Type="MediaFile" DeleteRule="NO ACTION" />

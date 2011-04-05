@@ -4,7 +4,7 @@
 	d:DesignWidth="640" d:DesignHeight="480">
 
 	<DockPanel x:Name="LayoutRoot">
-		<ListView x:Name="LibraryList" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Loaded="LibraryListLoaded" LayoutUpdated="LibraryList_LayoutUpdated">
+		<ListView x:Name="LibraryList" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Loaded="LibraryListLoaded" LayoutUpdated="LibraryListLayoutUpdated">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn/>

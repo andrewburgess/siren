@@ -2,6 +2,7 @@
 using System.Windows;
 using Controller;
 using Controller.Interfaces;
+using Controller.Interfaces.Controls;
 using View.Views;
 
 namespace View
@@ -13,7 +14,7 @@ namespace View
 	{
 		private SirenController Controller { get; set; }
 
-		private LibraryControl LibraryControl { get; set; }
+		public LibraryControl LibControl { get; set; }
 
 		public MainWindow()
 		{
@@ -32,13 +33,18 @@ namespace View
 		{
 			var window = new RepositoryScannerWindow();
 			window.ShowDialog();
-			LibraryControl.RefreshContent();
+			LibControl.RefreshContent();
 		}
 
 		public void LoadLibraryView()
 		{
-			LibraryControl = new LibraryControl();
-			ContentPanel.Children.Add(LibraryControl);
+			LibControl = new LibraryControl();
+			ContentPanel.Children.Add(LibControl);
+		}
+
+		public ILibraryControl LibraryControl
+		{
+			get { return LibControl; }
 		}
 
 		private void MenuLibrarySettingsClick(object sender, RoutedEventArgs e)

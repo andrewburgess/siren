@@ -10,12 +10,14 @@ namespace Controller.Controls
 	public class LibraryArtistController
 	{
 		private ILibraryArtistControl View { get; set; }
-		private Repository Repository { get; set; }
+		private static Repository Repository { get; set; }
 
 		public LibraryArtistController(ILibraryArtistControl view)
 		{
 			View = view;
-			Repository = DataAccessContext.GetRepository();
+
+			if (Repository == null)
+				Repository = DataAccessContext.GetRepository();
 		}
 
 		public void InitializeView()

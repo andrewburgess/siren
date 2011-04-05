@@ -47,7 +47,7 @@ namespace View.Views
 			}
 		}
 
-		private void LibraryList_LayoutUpdated(object sender, EventArgs e)
+		private void LibraryListLayoutUpdated(object sender, EventArgs e)
 		{
 			var view = ((GridView)LibraryList.View);
 			if (view.Columns.Count > 0)

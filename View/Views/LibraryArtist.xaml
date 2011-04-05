@@ -36,7 +36,7 @@
 			<TextBlock x:Name="ArtistName" TextWrapping="Wrap" FontSize="21.333"/>
 		</Label>
 		<Label x:Name="ArtistDescriptionParent" Margin="90,0,0,0">
-			<TextBlock x:Name="ArtistDescription" TextWrapping="Wrap" FontSize="10.667" FontWeight="Bold" Text="">
+			<TextBlock x:Name="ArtistDescription" TextWrapping="Wrap" FontSize="10.667" Text="">
 				<TextBlock.Effect>
 					<DropShadowEffect ShadowDepth="0" RenderingBias="Quality" Direction="0" BlurRadius="2" Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}"/>
 				</TextBlock.Effect>

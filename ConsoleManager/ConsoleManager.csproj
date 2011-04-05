@@ -49,6 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LastFM\LastFM.csproj">
+      <Project>{1AAA672E-38CA-4A03-89D9-E8F401566C0E}</Project>
+      <Name>LastFM</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{D598AF18-034C-425F-A895-47582E467823}</Project>
       <Name>Model</Name>

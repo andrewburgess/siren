@@ -1130,7 +1130,7 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Summary", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Summary", DbType="NText", UpdateCheck=UpdateCheck.Never)]
 		public string Summary
 		{
 			get
@@ -2903,6 +2903,8 @@ namespace Model
 		
 		private System.Nullable<System.DateTime> _LastUpdate;
 		
+		private string _Genre;
+		
 		private EntitySet<MediaFile> _MediaFiles;
 		
 		private EntitySet<Play> _Plays;
@@ -2959,6 +2961,8 @@ namespace Model
     partial void OnTrackNumberChanged();
     partial void OnLastUpdateChanging(System.Nullable<System.DateTime> value);
     partial void OnLastUpdateChanged();
+    partial void OnGenreChanging(string value);
+    partial void OnGenreChanged();
     #endregion
 		
 		public Track()
@@ -3051,7 +3055,7 @@ namespace Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comments", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comments", DbType="NVarChar(4000)")]
 		public string Comments
 		{
 			get
@@ -3395,6 +3399,26 @@ namespace Model
 					this._LastUpdate = value;
 					this.SendPropertyChanged("LastUpdate");
 					this.OnLastUpdateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Genre", DbType="NVarChar(255)")]
+		public string Genre
+		{
+			get
+			{
+				return this._Genre;
+			}
+			set
+			{
+				if ((this._Genre != value))
+				{
+					this.OnGenreChanging(value);
+					this.SendPropertyChanging();
+					this._Genre = value;
+					this.SendPropertyChanged("Genre");
+					this.OnGenreChanged();
 				}
 			}
 		}

@@ -7,12 +7,14 @@ namespace Controller.Controls
 	public class LibraryLocationController
 	{
 		private ILibraryLocationControl View { get; set; }
-		private Repository Repository { get; set; }
+		private static Repository Repository { get; set; }
 
 		public LibraryLocationController(ILibraryLocationControl view)
 		{
 			View = view;
-			Repository = DataAccessContext.GetRepository();
+
+			if (Repository == null)
+				Repository = DataAccessContext.GetRepository();
 		}
 
 		public void RemoveRepository(MediaRepository mediaRepository)

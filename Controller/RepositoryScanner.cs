@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Model;
 using Tag = TagLib.Tag;
 
@@ -17,6 +18,9 @@ namespace Controller
 	public class RepositoryScanner : BackgroundWorker
 	{
 		private static readonly string[] FileExtensions = new[] {".mp3"};
+
+		private object artistLock = new object();
+		private object albumLock = new object();
 
 		public enum States
 		{
@@ -50,56 +54,52 @@ namespace Controller
 				repository.LastScanned = DateTime.Now;
 
 				var pathCount = 0;
-				foreach (var path in paths)
-				{
-					pathCount += 1;
-					ReportProgress(CalculatePercentage(pathCount, paths.Count, repositoryCount, totalRepositories),
-					               new RepositoryScannerState
-					               	{CurrentPath = path, CurrentRepository = repository.Location});
+				Parallel.ForEach(paths, new ParallelOptions {MaxDegreeOfParallelism = 6}, delegate(string path)
+				                        	{
+												var repo = DataAccessContext.GetRepository();
+				                        		pathCount += 1;
+				                        		ReportProgress(
+				                        			CalculatePercentage(pathCount, paths.Count, repositoryCount, totalRepositories),
+				                        			new RepositoryScannerState {CurrentPath = path, CurrentRepository = repository.Location});
 
-					var mediaFile = Repository.MediaFiles.FirstOrDefault(x => x.FullPath == path);
-					Track track;
-					if (mediaFile != null)
-					{
-						if (mediaFile.LastModified < (new FileInfo(mediaFile.FullPath)).LastWriteTime.AddMinutes(-1))
-						{
-							track = Repository.Tracks.First(x => x.Id == mediaFile.TrackId);
-							//Update Track metadata
-							ProcessTrack(path, ref track);
-							Repository.SubmitChanges();
-						}
-						else
-						{
-							//File hasn't been modified, skip it
-							continue;
-						}
-					}
-					else
-					{
-						track = new Track { Id = Guid.NewGuid() };
-						//Update Track metadata
-						ProcessTrack(path, ref track);
+												var mediaFile = repo.MediaFiles.FirstOrDefault(x => x.FullPath == path);
+				                        		Track track;
+				                        		if (mediaFile != null)
+				                        		{
+				                        			if (mediaFile.LastModified <
+				                        			    (new FileInfo(mediaFile.FullPath)).LastWriteTime.AddMinutes(-1))
+				                        			{
+														track = repo.Tracks.First(x => x.Id == mediaFile.TrackId);
+				                        				//Update Track metadata
+				                        				ProcessTrack(path, ref track, ref repo);
+														repo.SubmitChanges();
+				                        			}
+				                        		}
+				                        		else
+				                        		{
+				                        			track = new Track {Id = Guid.NewGuid()};
+				                        			//Update Track metadata
+				                        			ProcessTrack(path, ref track, ref repo);
 
-						Repository.Tracks.InsertOnSubmit(track);
-						Repository.SubmitChanges();
+													repo.Tracks.InsertOnSubmit(track);
+													repo.SubmitChanges();
 
-						var file = new FileInfo(path);
-						mediaFile = new MediaFile
-						            	{
-						            		Id = Guid.NewGuid(),
-						            		RepositoryId = repository.Id,
-						            		FullPath = path,
-						            		DateAdded = DateTime.Now,
-						            		LastModified = file.LastWriteTime,
-						            		FileType = file.Extension,
-						            		Size = file.Length,
-											TrackId = track.Id
-						            	};
-						Repository.MediaFiles.InsertOnSubmit(mediaFile);
-						Repository.SubmitChanges();					
-					}
-				}
-
+				                        			var file = new FileInfo(path);
+				                        			mediaFile = new MediaFile
+				                        			            	{
+				                        			            		Id = Guid.NewGuid(),
+				                        			            		RepositoryId = repository.Id,
+				                        			            		FullPath = path,
+				                        			            		DateAdded = DateTime.Now,
+				                        			            		LastModified = file.LastWriteTime,
+				                        			            		FileType = file.Extension,
+				                        			            		Size = file.Length,
+				                        			            		TrackId = track.Id
+				                        			            	};
+													repo.MediaFiles.InsertOnSubmit(mediaFile);
+													repo.SubmitChanges();
+				                        		}
+				                        	});
 				repositoryCount += 1;
 			}
 		}
@@ -112,7 +112,7 @@ namespace Controller
 			return (int) (pP * 100.0);
 		}
 
-		private void ProcessTrack(string path, ref Track track)
+		private void ProcessTrack(string path, ref Track track, ref Repository repo)
 		{
 			var file = TagLib.File.Create(path);
 			track.Name = file.Tag.Title;
@@ -131,41 +131,52 @@ namespace Controller
 			track.SampleRate = file.Properties.AudioSampleRate;
 			track.Year = (int) file.Tag.Year;
 			track.MBID = string.IsNullOrEmpty(file.Tag.MusicBrainzTrackId) ? (Guid?)null : new Guid(file.Tag.MusicBrainzTrackId);
+			track.Genre = file.Tag.FirstGenre;
 
-			var artistId = GetArtist(file.Tag);
+			var artistId = GetArtist(file.Tag, ref repo);
 			track.ArtistId = artistId;
-			track.AlbumId = GetAlbum(artistId, file.Tag);
+			track.AlbumId = GetAlbum(artistId, file.Tag, ref repo);
 		}
 
-		private Guid GetAlbum(Guid artistId, Tag tag)
+		private Guid GetAlbum(Guid artistId, Tag tag, ref Repository repo)
 		{
-			var album = Repository.Albums.FirstOrDefault(x => x.ArtistId == artistId && x.Name == tag.Album);
-			if (album == null)
+			Guid id;
+			lock (albumLock)
 			{
-				album = new Album { Id = Guid.NewGuid() };
-				album.MBID = string.IsNullOrEmpty(tag.MusicBrainzReleaseId) ? (Guid?)null : new Guid(tag.MusicBrainzReleaseId);
-				album.Name = tag.Album;
-				album.ArtistId = artistId;
-				Repository.Albums.InsertOnSubmit(album);
-				Repository.SubmitChanges();
+				var album = repo.Albums.FirstOrDefault(x => x.ArtistId == artistId && x.Name == tag.Album);
+				if (album == null)
+				{
+					album = new Album {Id = Guid.NewGuid()};
+					album.MBID = string.IsNullOrEmpty(tag.MusicBrainzReleaseId) ? (Guid?) null : new Guid(tag.MusicBrainzReleaseId);
+					album.Name = tag.Album;
+					album.ArtistId = artistId;
+					repo.Albums.InsertOnSubmit(album);
+					repo.SubmitChanges();
+				}
+				id = album.Id;
 			}
 
-			return album.Id;
+			return id;
 		}
 
-		private Guid GetArtist(Tag tag)
+		private Guid GetArtist(Tag tag, ref Repository repo)
 		{
-			var artist = Repository.Artists.FirstOrDefault(x => x.Name == tag.FirstArtist);
-			if (artist == null)
+			Guid id;
+			lock (artistLock)
 			{
-				artist = new Artist {Id = Guid.NewGuid()};
-				artist.MBID = string.IsNullOrEmpty(tag.MusicBrainzArtistId) ? (Guid?) null : new Guid(tag.MusicBrainzArtistId);
-				artist.Name = tag.FirstArtist;
-				Repository.Artists.InsertOnSubmit(artist);
-				Repository.SubmitChanges();
+				var artist = repo.Artists.FirstOrDefault(x => x.Name == tag.FirstArtist);
+				if (artist == null)
+				{
+					artist = new Artist {Id = Guid.NewGuid()};
+					artist.MBID = string.IsNullOrEmpty(tag.MusicBrainzArtistId) ? (Guid?) null : new Guid(tag.MusicBrainzArtistId);
+					artist.Name = tag.FirstArtist;
+					repo.Artists.InsertOnSubmit(artist);
+					repo.SubmitChanges();
+				}
+				id = artist.Id;
 			}
 
-			return artist.Id;
+			return id;
 		}
 
 		private static IEnumerable<string> FindFiles(DirectoryInfo directory)

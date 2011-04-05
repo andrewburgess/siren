@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Controller.Interfaces.Controls;
 using Model;
@@ -12,11 +13,11 @@ namespace Controller.Controls
 		public LibraryControlController(ILibraryControl view)
 		{
 			View = view;
-			Repository = DataAccessContext.GetRepository();
 		}
 
 		public void InitializeView()
 		{
+			Repository = DataAccessContext.GetRepository();
 			View.LibraryItems = Repository.Artists.Where(x => x.Tracks.Count() > 0);
 		}
 	}
