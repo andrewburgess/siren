@@ -11,5 +11,6 @@ namespace Controller.Interfaces.Controls
 		void SetTrackCount(int trackCount);
 		void SetPlayCount(int playCount);
 		void SetScore(double score);
+		void SetImage(Image image);
 	}
 }

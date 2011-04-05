@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Controller.Interfaces.Controls;
+using LastFM;
 using Model;
 
 namespace Controller.Controls
@@ -38,6 +39,13 @@ namespace Controller.Controls
 			             where x.ArtistId == artist.Id
 			             select x.Score).Average();
 			View.SetScore(score);
+
+			var img = (from i in Repository.Images
+			           where i.LinkedId == artist.Id
+					   where i.Size == (int)ImageSize.Mega
+			           select i).FirstOrDefault();
+			if (img != null)
+				View.SetImage(img);
 		}
 	}
 }

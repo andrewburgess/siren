@@ -71,6 +71,7 @@
       <Column Name="Size" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Width" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Height" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="MediaFiles">

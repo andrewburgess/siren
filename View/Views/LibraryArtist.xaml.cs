@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Controller.Controls;
 using Controller.Interfaces.Controls;
+using Controller.Utilities;
 using Model;
 using Image = System.Windows.Controls.Image;
 
@@ -25,18 +27,6 @@ namespace View.Views
 
 			Controller = new LibraryArtistController(this);
 			Controller.InitializeView();
-
-			/*var x = (Image)LayoutRoot.Resources["img"];
-			var y = new BitmapImage();
-			y.BeginInit();
-			y.UriSource = new Uri(@"test2.png", UriKind.Absolute);
-			y.EndInit();
-			x.Source = y;
-
-			LayoutRoot.Background = CreateBrush();
-			var img = new Image();
-			img.Source = y;
-			ArtistData.Children.Add(img);*/
 		}
 
 		#region ILibraryArtistControl Implementation
@@ -69,6 +59,25 @@ namespace View.Views
 		{
 			Score.Content = string.Format("Score: {0}%", score);
 		}
+
+		public void SetImage(Model.Image image)
+		{
+			BitmapImage bitmap;
+			try
+			{
+				bitmap = ImageUtilities.ImageFromBuffer(image.ImageData.ToArray());
+			}
+			catch (Exception e)
+			{
+				bitmap = ImageUtilities.ImageFromGDIPlus(image.ImageData.ToArray());
+			}
+			
+			
+			((Image) LayoutRoot.Resources["img"]).Source = bitmap;
+
+			LayoutRoot.Background = CreateBrush();
+		}
+
 		#endregion
 
 		private VisualBrush CreateBrush()

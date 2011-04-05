@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Linq;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
+using Controller.Utilities;
 using LastFM;
 using Model;
+using Image = Model.Image;
 
 namespace Controller
 {
-
 	public class LastFMUpdater : BackgroundWorker
 	{
-		private bool Working { get; set; }
-
 		public LastFMUpdater()
 		{
 			WorkerReportsProgress = true;
@@ -21,11 +26,12 @@ namespace Controller
 			DoWork += Start;
 		}
 
+		private bool Working { get; set; }
+
 		private void Start(object sender, DoWorkEventArgs args)
 		{
 			while (true)
 			{
-
 				var factory = new TaskFactory(TaskCreationOptions.LongRunning, TaskContinuationOptions.None);
 				factory.StartNew(WorkOnArtists);
 				factory.StartNew(WorkOnUserinfo);
@@ -39,9 +45,9 @@ namespace Controller
 			string username;
 			RecentTracks initialPage;
 			int count;
-			using (var repository = DataAccessContext.GetRepository())
+			using (Repository repository = DataAccessContext.GetRepository())
 			{
-				var configValue = repository.Configurations.FirstOrDefault(x => x.Key == Config.LAST_FM_USERNAME);
+				Configuration configValue = repository.Configurations.FirstOrDefault(x => x.Key == Config.LAST_FM_USERNAME);
 
 				if (configValue == null)
 					return;
@@ -50,9 +56,9 @@ namespace Controller
 
 				initialPage = API.User.GetRecentTracks(username, 1, 10);
 				count = 0;
-				foreach (var t in initialPage.TrackPlays)
+				foreach (TrackPlay t in initialPage.TrackPlays)
 				{
-					var t1 = t;
+					TrackPlay t1 = t;
 					if (repository.Plays.Count(x => x.DatePlayed == t1.DatePlayed) > 0)
 					{
 						count += 1;
@@ -67,30 +73,35 @@ namespace Controller
 			}
 
 			initialPage = API.User.GetRecentTracks(username, 1, 200);
-			foreach (var track in initialPage.TrackPlays)
+			foreach (TrackPlay track in initialPage.TrackPlays)
 			{
 				AddTrackPlay(track);
 			}
 			Parallel.For(2, initialPage.TotalPages, new ParallelOptions {MaxDegreeOfParallelism = 10}, delegate(int index)
-			                                        	{
-			                                        		var page = API.User.GetRecentTracks(username, index, 200);
-															foreach (var track in page.TrackPlays)
-															{
-																AddTrackPlay(track);
-															}
-			                                        	});
+			                                                                                           	{
+			                                                                                           		RecentTracks page =
+			                                                                                           			API.User.
+			                                                                                           				GetRecentTracks(
+			                                                                                           					username, index, 200);
+			                                                                                           		foreach (
+			                                                                                           			TrackPlay track in
+			                                                                                           				page.TrackPlays)
+			                                                                                           		{
+			                                                                                           			AddTrackPlay(track);
+			                                                                                           		}
+			                                                                                           	});
 			ReportProgress(100);
 		}
 
 		private static void AddTrackPlay(TrackPlay track)
 		{
-			using (var repo = DataAccessContext.GetRepository())
+			using (Repository repo = DataAccessContext.GetRepository())
 			{
 				if (repo.Plays.Count(x => x.DatePlayed == track.DatePlayed) > 0)
 					return;
 				var play = new Play {Id = Guid.NewGuid()};
 
-				var t =
+				Track t =
 					repo.Tracks.Where(x => x.Name.ToLower() == track.TrackName.ToLower()).Where(
 						x => x.Artist.Name.ToLower() == track.Artist.ToLower()).FirstOrDefault();
 				if (t == null)
@@ -106,36 +117,38 @@ namespace Controller
 
 		private void WorkOnArtists()
 		{
-			using (var repository = DataAccessContext.GetRepository())
+			using (Repository repository = DataAccessContext.GetRepository())
 			{
-				var artistUpdates = repository.Artists.Where(x => x.LastUpdate.HasValue == false || x.LastUpdate.Value < DateTime.Now.AddSeconds(-1));
+				IQueryable<Artist> artistUpdates =
+					repository.Artists.Where(x => x.LastUpdate.HasValue == false || x.LastUpdate.Value < DateTime.Now.AddMonths(-1));
 
 				var lockObj = new object();
 				var info = new List<ArtistInfo>();
-				var result = Parallel.ForEach(artistUpdates, new ParallelOptions {MaxDegreeOfParallelism = 4},
-				                              delegate(Artist artist)
-				                              	{
-				                              		var update = UpdateArtist(artist);
-				                              		lock (lockObj)
-				                              			info.Add(update);
-				                              	});
+				ParallelLoopResult result = Parallel.ForEach(artistUpdates, new ParallelOptions {MaxDegreeOfParallelism = 4},
+				                                             delegate(Artist artist)
+				                                             	{
+				                                             		ArtistInfo update = UpdateArtist(artist);
+				                                             		lock (lockObj)
+				                                             			info.Add(update);
+				                                             	});
 				CommitArtistUpdates(info);
 			}
 		}
 
 		private static ArtistInfo UpdateArtist(Artist artist)
 		{
-			var data = API.Artist.GetInfo(artist.Id, artist.Name);
+			ArtistInfo data = API.Artist.GetInfo(artist.Id, artist.Name);
 			return data;
 		}
 
 		private void CommitArtistUpdates(IEnumerable<ArtistInfo> updates)
 		{
-			using (var repo = DataAccessContext.GetRepository())
+			using (Repository repo = DataAccessContext.GetRepository())
 			{
-				foreach (var info in updates)
+				foreach (ArtistInfo info in updates)
 				{
-					var artist = repo.Artists.First(x => x.Id == info.Id);
+					ArtistInfo info1 = info;
+					Artist artist = repo.Artists.First(x => x.Id == info1.Id);
 					artist.Bio = info.Bio;
 					artist.LastFMListeners = info.Listeners;
 					artist.LastFMPlays = info.Plays;
@@ -143,11 +156,107 @@ namespace Controller
 					if (artist.MBID.HasValue == false)
 						artist.MBID = info.MBID;
 					artist.LastUpdate = DateTime.Now;
+
 					repo.SubmitChanges();
+
+					UpdateArtistImages(artist.Id, info.Images);
 				}
 			}
 
 			ReportProgress(100);
+		}
+
+		private static void UpdateArtistImages(Guid id, IEnumerable<KeyValuePair<string, string>> images)
+		{
+			Parallel.ForEach(images, new ParallelOptions {MaxDegreeOfParallelism = 1},
+			                 delegate(KeyValuePair<string, string> image)
+			                 	{
+			                 		using (Repository repo = DataAccessContext.GetRepository())
+			                 		{
+			                 			if (repo.Images.Count(x => x.Url == image.Value) > 0)
+			                 				return;
+
+			                 			var client = new WebClient();
+			                 			byte[] bytes = client.DownloadData(image.Value);
+			                 			Binary imgData;
+			                 			if (repo.Images.Count(x => x.Url == image.Value) == 0)
+			                 			{
+			                 				ImageSize size = ImageSize.Small;
+			                 				switch (image.Key)
+			                 				{
+			                 					case "original":
+			                 						size = ImageSize.Original;
+			                 						break;
+			                 					case "large":
+			                 						size = ImageSize.Large;
+			                 						break;
+			                 					case "largesquare":
+			                 						size = ImageSize.LargeSquare;
+			                 						break;
+			                 					case "medium":
+			                 						size = ImageSize.Medium;
+			                 						break;
+			                 					case "small":
+			                 						size = ImageSize.Small;
+			                 						break;
+			                 					case "extralarge":
+			                 						size = ImageSize.ExtraLarge;
+			                 						break;
+			                 					case "mega":
+			                 						size = ImageSize.Mega;
+			                 						break;
+			                 				}
+
+			                 				BitmapImage bitmap;
+			                 				int height;
+			                 				int width;
+			                 				try
+			                 				{
+												bitmap = ImageUtilities.ImageFromBuffer(bytes);
+			                 					height = (int) bitmap.Height;
+			                 					width = (int) bitmap.Width;
+			                 					imgData = new Binary(bytes);
+			                 				}
+			                 				catch (Exception e)
+			                 				{
+			                 					try
+			                 					{
+			                 						bitmap = ImageUtilities.ImageFromGDIPlus(bytes);
+			                 						height = (int) bitmap.Height;
+			                 						width = (int) bitmap.Width;
+
+			                 						var b = ImageUtilities.BufferFromImage(bitmap);
+
+													//var fs = File.OpenRead(@"C:\Temp\" + guid + ".bmp");
+													//var b = new byte[fs.Length];
+													//fs.Read(b, 0, (int) fs.Length);
+													//fs.Close();
+
+			                 						imgData = new Binary(b);
+
+			                 					}
+			                 					catch (Exception e1)
+			                 					{
+			                 						return;
+			                 					}
+			                 				}
+
+			                 				var img = new Image
+			                 				          	{
+			                 				          		Id = Guid.NewGuid(),
+			                 				          		Size = (int) size,
+			                 				          		Height = height,
+			                 				          		Width = width,
+			                 				          		ImageData = imgData,
+			                 				          		Url = image.Value,
+			                 				          		LinkedId = id
+			                 				          	};
+
+			                 				repo.Images.InsertOnSubmit(img);
+			                 				repo.SubmitChanges();
+			                 			}
+			                 		}
+			                 	});
 		}
 	}
 }

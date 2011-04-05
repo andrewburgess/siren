@@ -1520,6 +1520,8 @@ namespace Model
 		
 		private int _Height;
 		
+		private string _Url;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1536,6 +1538,8 @@ namespace Model
     partial void OnWidthChanged();
     partial void OnHeightChanging(int value);
     partial void OnHeightChanged();
+    partial void OnUrlChanging(string value);
+    partial void OnUrlChanged();
     #endregion
 		
 		public Image()
@@ -1659,6 +1663,26 @@ namespace Model
 					this._Height = value;
 					this.SendPropertyChanged("Height");
 					this.OnHeightChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string Url
+		{
+			get
+			{
+				return this._Url;
+			}
+			set
+			{
+				if ((this._Url != value))
+				{
+					this.OnUrlChanging(value);
+					this.SendPropertyChanging();
+					this._Url = value;
+					this.SendPropertyChanged("Url");
+					this.OnUrlChanged();
 				}
 			}
 		}

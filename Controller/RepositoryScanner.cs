@@ -54,7 +54,7 @@ namespace Controller
 				repository.LastScanned = DateTime.Now;
 
 				var pathCount = 0;
-				Parallel.ForEach(paths, new ParallelOptions {MaxDegreeOfParallelism = 6}, delegate(string path)
+				Parallel.ForEach(paths, new ParallelOptions {MaxDegreeOfParallelism = 15}, delegate(string path)
 				                        	{
 												var repo = DataAccessContext.GetRepository();
 				                        		pathCount += 1;
