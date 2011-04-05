@@ -38,5 +38,17 @@ namespace LastFM
 				return new ArtistInfo(id, data);
 			}
 		}
+
+		public static class User
+		{
+			public static RecentTracks GetRecentTracks(string username, int page, int limit)
+			{
+				var url = LASTFM_URL +
+				          string.Format("user.getrecenttracks&user={0}&page={1}&limit={2}&api_key={3}", username, page, limit,
+				                        API_KEY);
+				var data = DownloadData(url);
+				return new RecentTracks(data);
+			}
+		}
 	}
 }
