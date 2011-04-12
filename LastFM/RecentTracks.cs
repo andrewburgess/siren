@@ -40,8 +40,11 @@ namespace LastFM
 
 			foreach (var track in t.First())
 			{
-				TrackPlays.Add(new TrackPlay(track.Descendants("artist").First().Value, track.Descendants("name").First().Value,
-				                             DateTime.Parse(track.Descendants("date").First().Value)));
+				if (track.Attribute("nowplaying") == null)
+				{
+					TrackPlays.Add(new TrackPlay(track.Descendants("artist").First().Value, track.Descendants("name").First().Value,
+					                             DateTime.Parse(track.Descendants("date").First().Value)));
+				}
 			}
 		}
 	}

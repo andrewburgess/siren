@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API.cs" />
+    <Compile Include="ArtistImages.cs" />
     <Compile Include="ArtistInfo.cs" />
     <Compile Include="HtmlRemoval.cs" />
     <Compile Include="ImageSize.cs" />

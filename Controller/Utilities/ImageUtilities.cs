@@ -8,6 +8,7 @@ namespace Controller.Utilities
 {
 	public static class ImageUtilities
 	{
+		//http://social.msdn.microsoft.com/forums/en-US/wpf/thread/0f037b9c-779d-45ad-b797-01c25999491b
 		public static BitmapImage ImageFromGDIPlus(byte[] bytes)
 		{
 			var guid = Guid.NewGuid();

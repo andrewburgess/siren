@@ -23,5 +23,30 @@ namespace View
 		{
 			Close();
 		}
+
+		private void LastFMSettings_Selected(object sender, RoutedEventArgs e)
+		{
+			if (e.Handled == false)
+			{
+				ContentPanel.Children.Clear();
+				ContentPanel.Children.Add(new LastFMSettingsControl());
+			}
+		}
+
+		private void LastFMUserSettings_Selected(object sender, RoutedEventArgs e)
+		{
+			ContentPanel.Children.Clear();
+			ContentPanel.Children.Add(new LastFMSettingsControl());
+
+			e.Handled = true;
+		}
+
+		private void LastFMUpdateData_Selected(object sender, RoutedEventArgs e)
+		{
+			ContentPanel.Children.Clear();
+			ContentPanel.Children.Add(new LastFMUpdateDataControl());
+
+			e.Handled = true;
+		}
 	}
 }

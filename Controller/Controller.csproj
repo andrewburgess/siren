@@ -50,10 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Controls\ArtistDetailController.cs" />
     <Compile Include="Controls\LastFMSettingsController.cs" />
+    <Compile Include="Controls\LastFMUpdateDataController.cs" />
     <Compile Include="Controls\LibraryArtistController.cs" />
     <Compile Include="Controls\LibraryControlController.cs" />
     <Compile Include="Controls\LibraryLocationController.cs" />
+    <Compile Include="Interfaces\Controls\IArtistDetailControl.cs" />
     <Compile Include="Interfaces\Controls\ILastFMSettingsControl.cs" />
     <Compile Include="Interfaces\Controls\ILibraryArtistControl.cs" />
     <Compile Include="Interfaces\Controls\ILibraryControl.cs" />

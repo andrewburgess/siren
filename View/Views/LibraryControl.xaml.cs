@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using Controller.Controls;
 using Controller.Interfaces.Controls;
 using Model;
@@ -10,55 +9,54 @@ using Model;
 namespace View.Views
 {
 	/// <summary>
-	/// Interaction logic for LibraryControl.xaml
+	/// 	Interaction logic for LibraryControl.xaml
 	/// </summary>
 	public partial class LibraryControl : ILibraryControl
 	{
-		private LibraryControlController Controller { get; set; }
+		private List<LibraryArtist> LibraryArtists { get; set; }
 
 		public LibraryControl()
 		{
 			InitializeComponent();
+			LibraryArtists = new List<LibraryArtist>();
 			Controller = new LibraryControlController(this);
-			Controller.InitializeView();
 		}
+
+		private LibraryControlController Controller { get; set; }
+
+		#region ILibraryControl Members
 
 		public IQueryable<Artist> LibraryItems
 		{
 			set
 			{
-				LibraryList.Items.Clear();
+				LibraryArtists.Clear();
+				LibraryPanel.Children.Clear();
 				foreach (var item in value)
 				{
 					var ctl = new LibraryArtist(item);
-					LibraryList.Items.Add(ctl);
+					LibraryArtists.Add(ctl);
+					LibraryPanel.Children.Add(ctl);
 				}
 			}
 		}
 
-		private void LibraryListLoaded(object sender, RoutedEventArgs e)
-		{
-			var view = ((GridView)LibraryList.View);
-			if (view.Columns.Count > 0)
-			{
-				view.Columns[0].Width = LibraryList.ActualWidth - 30;
-				foreach (LibraryArtist item in LibraryList.Items)
-					item.Width = view.Columns[0].ActualWidth;
-			}
-		}
-
-		private void LibraryListLayoutUpdated(object sender, EventArgs e)
-		{
-			var view = ((GridView)LibraryList.View);
-			if (view.Columns.Count > 0)
-			{
-				view.Columns[0].Width = LibraryList.ActualWidth - 30;
-				foreach (LibraryArtist item in LibraryList.Items)
-					item.Width = view.Columns[0].ActualWidth;
-			}
-		}
-
 		public void RefreshContent()
+		{
+			Controller.InitializeView();
+		}
+
+		public void UpdateArtist(Artist artist)
+		{
+			var index = LibraryArtists.FindIndex(x => x.Artist.Id == artist.Id);
+			LibraryArtists[index] = new LibraryArtist(artist);
+			LibraryPanel.Children.RemoveAt(index);
+			LibraryPanel.Children.Insert(index, new LibraryArtist(artist));
+		}
+
+		#endregion
+
+		private void LibraryControlLoaded(object sender, RoutedEventArgs e)
 		{
 			Controller.InitializeView();
 		}

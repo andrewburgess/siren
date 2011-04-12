@@ -9,5 +9,6 @@ namespace Controller.Interfaces.Controls
 	{
 		IQueryable<Artist> LibraryItems { set; }
 		void RefreshContent();
+		void UpdateArtist(Artist artist);
 	}
 }

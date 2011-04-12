@@ -37,15 +37,30 @@ namespace LastFM
 				var data = DownloadData(url);
 				return new ArtistInfo(id, data);
 			}
+
+			public static ArtistImages GetImages(string artist, int limit = 5, bool autoCorrect = true)
+			{
+				var url = LASTFM_URL +
+				          string.Format("artist.getimages&artist={0}&limit={1}&autocorrect={2}&api_key={3}",
+				                        HttpUtility.UrlEncode(artist), limit, autoCorrect ? 1 : 0, API_KEY);
+				var data = DownloadData(url);
+				return new ArtistImages(data);
+			}
 		}
 
 		public static class User
 		{
-			public static RecentTracks GetRecentTracks(string username, int page, int limit)
+			public static RecentTracks GetRecentTracks(string username, int page, int limit, DateTime from)
 			{
+				long f = 0;
+				if (from != DateTime.MinValue)
+				{
+					var t = (from - (new DateTime(1970, 1, 1)).ToUniversalTime());
+					f = (long) t.TotalSeconds;
+				}
 				var url = LASTFM_URL +
-				          string.Format("user.getrecenttracks&user={0}&page={1}&limit={2}&api_key={3}", username, page, limit,
-				                        API_KEY);
+				          string.Format("user.getrecenttracks&user={0}&page={1}&limit={2}&api_key={3}&from={4}", username, page,
+				                        limit, API_KEY, f);
 				var data = DownloadData(url);
 				return new RecentTracks(data);
 			}

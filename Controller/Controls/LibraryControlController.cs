@@ -18,7 +18,7 @@ namespace Controller.Controls
 		public void InitializeView()
 		{
 			Repository = DataAccessContext.GetRepository();
-			View.LibraryItems = Repository.Artists.Where(x => x.Tracks.Count() > 0);
+			View.LibraryItems = Repository.Artists.Where(x => x.Tracks.Count() > 0).OrderBy(x => x.Name);
 		}
 	}
 }

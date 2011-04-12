@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using Controller.Interfaces;
 using Controller.Interfaces.Controls;
 using Model;
@@ -14,15 +13,14 @@ namespace Controller
 		private ILibraryControl LibraryControl { get; set; }
 		private Repository Repository { get; set; }
 
-		private LastFMUpdater LastFMUpdater { get; set; }
-		private bool Running { get; set; }
+		private static SirenController Instance { get; set; }
 
 		public SirenController(IMainWindowView view)
 		{
 			View = view;
+			Instance = this;
 			
 			Repository = DataAccessContext.GetRepository();
-			Running = true;
 		}
 
 		public void InitializeView()
@@ -30,14 +28,32 @@ namespace Controller
 			View.LoadLibraryView();
 
 			LibraryControl = View.LibraryControl;
-			LastFMUpdater = new LastFMUpdater();
-			LastFMUpdater.ProgressChanged += LastFMUpdated;
-			LastFMUpdater.RunWorkerAsync();
 		}
 
-		private void LastFMUpdated(object sender, ProgressChangedEventArgs e)
+		public static SirenController GetInstance()
 		{
-			LibraryControl.RefreshContent();
+			return Instance;
+		}
+
+		public void LastFMUpdate(object sender, ProgressChangedEventArgs e)
+		{
+			if (e.UserState != null)
+			{
+				if (e.UserState is Artist)
+				{
+					LibraryControl.UpdateArtist((Artist) e.UserState);
+				}
+			}
+		}
+
+		public void ShowArtist(Artist artist)
+		{
+			View.ShowArtistPanel(artist);
+		}
+
+		public void Back()
+		{
+			View.GoBack();
 		}
 	}
 }

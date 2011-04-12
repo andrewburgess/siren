@@ -17,6 +17,6 @@
 			<Label Content="Password:" Margin="10,0,25,0" Height="25" Width="65"/>
 			<PasswordBox x:Name="Password" Width="250" Height="25"/>
 		</StackPanel>
-		<Button x:Name="SaveChanges" Content="Save Last.FM Settings" Width="150" DockPanel.Dock="Top" Height="40" Margin="0,90,0,0" Click="SaveChangesClick" />
+		<Button x:Name="SaveChanges" Content="Save Last.FM Settings" Width="150" DockPanel.Dock="Bottom" Height="40" Margin="0,0,0,10" Click="SaveChangesClick" />
 	</DockPanel>
 </UserControl>

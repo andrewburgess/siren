@@ -8,7 +8,10 @@
 
 	<DockPanel x:Name="LayoutRoot" LastChildFill="False">
 		<TreeView x:Name="OptionsGrouping" Width="175" HorizontalAlignment="Left">
-			<TreeViewItem x:Name="LastFMSettings" Header="Last.FM Settings" Margin="0,2" Padding="1,2,0,2"/>
+			<TreeViewItem x:Name="LastFMSettings" Header="Last.FM Settings" Margin="0,2" Padding="1,2,0,2" IsExpanded="True" Selected="LastFMSettings_Selected">
+				<TreeViewItem x:Name="LastFMUserSettings" Header="Login Information" Selected="LastFMUserSettings_Selected" />
+				<TreeViewItem x:Name="LastFMUpdateData" Header="Data Status" Selected="LastFMUpdateData_Selected" />
+			</TreeViewItem>
 		</TreeView>
 		<DockPanel x:Name="ContentPanel" LastChildFill="False" Width="400" DockPanel.Dock="Top" Height="315"/>
 		<Button x:Name="Finished" Content="Done" Width="75" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Height="30" Margin="0,0,15,10" Click="FinishedClick" />

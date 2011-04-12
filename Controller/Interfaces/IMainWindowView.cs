@@ -1,4 +1,5 @@
 ﻿using Controller.Interfaces.Controls;
+using Model;
 
 namespace Controller.Interfaces
 {
@@ -6,5 +7,7 @@ namespace Controller.Interfaces
 	{
 		void LoadLibraryView();
 		ILibraryControl LibraryControl { get; }
+		void ShowArtistPanel(Artist artist);
+		void GoBack();
 	}
 }

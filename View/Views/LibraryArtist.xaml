@@ -6,7 +6,10 @@
 	mc:Ignorable="d"
 	x:Class="View.Views.LibraryArtist"
 	x:Name="UserControl"
-	d:DesignWidth="640" d:DesignHeight="480" Height="120">
+	d:DesignWidth="640" d:DesignHeight="480" Height="215" Width="200" Foreground="{x:Null}" MouseUp="UserControlMouseUp" Loaded="LibraryArtistLoaded">
+	<UserControl.Background>
+		<ImageBrush ImageSource="/View;component/Assets/artist_background.png"/>
+	</UserControl.Background>
 
 	<DockPanel x:Name="LayoutRoot">
 		<DockPanel.Resources>
@@ -23,24 +26,16 @@
 		<DockPanel.Background>
 			<VisualBrush Visual="{DynamicResource img}" AlignmentX="Left" AlignmentY="Center" Stretch="Uniform" />
 		</DockPanel.Background>
-		<DockPanel x:Name="ArtistData" LastChildFill="False" DockPanel.Dock="Right" MinWidth="125" HorizontalAlignment="Right" MaxWidth="250" Width="125">
-			<Label x:Name="AlbumCount" Content="" DockPanel.Dock="Top" Margin="0,1"/>
-			<Label x:Name="TrackCount" Content="" DockPanel.Dock="Top" Margin="0,1"/>
-			<Label x:Name="Score" Content="" DockPanel.Dock="Bottom" Margin="0,1"/>
-			<Label x:Name="PlayCount" Content="" DockPanel.Dock="Bottom" Margin="0,1"/>
-		</DockPanel>
-		<Label x:Name="ArtistNameParent" FontSize="26.667" FontWeight="Bold" Margin="90,0,0,0" DockPanel.Dock="Top">
+		<Image x:Name="ArtistImage" Width="126" Height="126" DockPanel.Dock="Top" Margin="0,15,0,0">
+			<Image.Effect>
+				<DropShadowEffect Color="#FFC6C6C6" Direction="0" ShadowDepth="0" BlurRadius="15" Opacity="0.7"/>
+			</Image.Effect>
+		</Image>
+		<Label x:Name="ArtistNameParent" DockPanel.Dock="Bottom" HorizontalContentAlignment="Center" FontSize="18.667" FontWeight="Bold" Margin="15,0,15,10" Foreground="#FFF7F7F7">
 			<Label.Effect>
-				<DropShadowEffect Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}" ShadowDepth="0"/>
+				<DropShadowEffect ShadowDepth="3"/>
 			</Label.Effect>
-			<TextBlock x:Name="ArtistName" TextWrapping="Wrap" FontSize="21.333"/>
-		</Label>
-		<Label x:Name="ArtistDescriptionParent" Margin="90,0,0,0">
-			<TextBlock x:Name="ArtistDescription" TextWrapping="Wrap" FontSize="10.667" Text="">
-				<TextBlock.Effect>
-					<DropShadowEffect ShadowDepth="0" RenderingBias="Quality" Direction="0" BlurRadius="2" Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}"/>
-				</TextBlock.Effect>
-			</TextBlock>
+			<TextBlock x:Name="ArtistName" TextWrapping="Wrap" TextAlignment="Center"/>
 		</Label>
 	</DockPanel>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using LastFM;
+﻿using System;
+using LastFM;
 
 namespace ConsoleManager
 {
@@ -6,7 +7,9 @@ namespace ConsoleManager
 	{
 		static void Main(string[] args)
 		{
-			var lastfm = API.User.GetRecentTracks("deceptacle", 1, 5);
+			var lastfm = API.Artist.GetImages("Rammstein");
+
+			Console.ReadLine();
 		}
 	}
 }
