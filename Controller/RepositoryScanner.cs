@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Controller.Utilities;
+using LastFM;
 using Model;
+using TagLib;
+using Image = Model.Image;
 using Tag = TagLib.Tag;
 
 namespace Controller
@@ -19,8 +24,8 @@ namespace Controller
 	{
 		private static readonly string[] FileExtensions = new[] {".mp3"};
 
-		private object artistLock = new object();
-		private object albumLock = new object();
+		private readonly object artistLock = new object();
+		private readonly object albumLock = new object();
 
 		public enum States
 		{
@@ -136,6 +141,33 @@ namespace Controller
 			var artistId = GetArtist(file.Tag, ref repo);
 			track.ArtistId = artistId;
 			track.AlbumId = GetAlbum(artistId, file.Tag, ref repo);
+
+			if (file.Tag.Pictures.Count() > 0)
+			{
+				var pic = file.Tag.Pictures[0];
+				InsertAlbumArt(track.AlbumId, pic, ref repo);
+			}
+		}
+
+		private static void InsertAlbumArt(Guid albumId, IPicture pic, ref Repository repo)
+		{
+			if (repo.Images.Count(x => x.LinkedId == albumId) > 0)
+				return;
+
+			var bitmap = ImageUtilities.ImageFromBuffer(pic.Data.ToArray());
+
+			var img = new Image
+			          	{
+			          		Height = (int) bitmap.Height,
+			          		Id = Guid.NewGuid(),
+			          		ImageData = pic.Data.ToArray(),
+			          		LinkedId = albumId,
+			          		Size = (int) ImageSize.ExtraLarge,
+			          		Url = "",
+			          		Width = (int) bitmap.Width
+			          	};
+			repo.Images.InsertOnSubmit(img);
+			repo.SubmitChanges();
 		}
 
 		private Guid GetAlbum(Guid artistId, Tag tag, ref Repository repo)

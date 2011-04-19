@@ -1,0 +1,20 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="View.Views.AlbumControl"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480" Loaded="AlbumControlLoaded" Margin="0,0,0,20">
+
+	<DockPanel x:Name="LayoutRoot">
+		<Label x:Name="AlbumName" Content="Better Life" DockPanel.Dock="Top" Foreground="#FFF3F3F3" FontSize="24" FontWeight="Bold">
+			<Label.Effect>
+				<DropShadowEffect ShadowDepth="3"/>
+			</Label.Effect>
+		</Label>
+		<Image x:Name="AlbumCover" Width="150" Height="150" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,20,40,20" Source="/View;component/Assets/unknown_item.png"/>
+		<StackPanel x:Name="Tracks"/>
+	</DockPanel>
+</UserControl>

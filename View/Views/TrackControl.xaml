@@ -1,0 +1,18 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="View.Views.TrackControl"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480" Height="26" Loaded="TrackControlLoaded">
+
+	<DockPanel x:Name="LayoutRoot">
+		<Label x:Name="TrackNumber" Content="" Foreground="#FFF3F3F3" VerticalAlignment="Top" Width="40" HorizontalAlignment="Left"/>
+		<Label x:Name="TrackName" Content="" VerticalAlignment="Top" Foreground="#FFF3F3F3"/>
+		<Label x:Name="TrackPlays" Content="" DockPanel.Dock="Right" HorizontalAlignment="Right" Foreground="#FFF3F3F3" VerticalAlignment="Top" Width="70"/>
+		<Label x:Name="TrackScore" DockPanel.Dock="Right" Foreground="#FFF3F3F3" VerticalAlignment="Top" Content="" Width="42" Margin="4,0,10,0"/>
+		<Label x:Name="TrackLength" Content="" HorizontalAlignment="Right" Foreground="#FFF3F3F3" VerticalAlignment="Top" Margin="0,0,25,0" Width="42"/>
+	</DockPanel>
+</UserControl>

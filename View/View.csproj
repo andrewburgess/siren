@@ -75,8 +75,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\ArtistDetail.xaml.cs">
-      <DependentUpon>ArtistDetail.xaml</DependentUpon>
+    <Compile Include="Views\AlbumControl.xaml.cs">
+      <DependentUpon>AlbumControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ArtistDetailControl.xaml.cs">
+      <DependentUpon>ArtistDetailControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LastFMSettingsControl.xaml.cs">
       <DependentUpon>LastFMSettingsControl.xaml</DependentUpon>
@@ -103,7 +106,14 @@
     <Compile Include="Views\LibraryControl.xaml.cs">
       <DependentUpon>LibraryControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\ArtistDetail.xaml">
+    <Compile Include="Views\TrackControl.xaml.cs">
+      <DependentUpon>TrackControl.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\AlbumControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ArtistDetailControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -148,6 +158,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\LibraryControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TrackControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -211,6 +225,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\artist_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\unknown_item.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

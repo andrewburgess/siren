@@ -53,7 +53,7 @@ namespace View
 
 		public void ShowArtistPanel(Artist artist)
 		{
-			var panel = new ArtistDetail(artist);
+			var panel = new ArtistDetailControl(artist);
 			Pages.Push(panel);
 			ContentPanel.Children.Clear();
 			ContentPanel.Children.Add(panel);

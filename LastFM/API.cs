@@ -65,5 +65,17 @@ namespace LastFM
 				return new RecentTracks(data);
 			}
 		}
+
+		public static class Album
+		{
+			public static AlbumInfo GetInfo(Guid id, string artist, string album, bool autoCorrect = true)
+			{
+				var url = LASTFM_URL +
+				          string.Format("album.getinfo&artist={0}&album={1}&autocorrect={2}&api_key={3}", HttpUtility.UrlEncode(artist), HttpUtility.UrlEncode(album),
+				                        autoCorrect ? 1 : 0, API_KEY);
+				var data = DownloadData(url);
+				return new AlbumInfo(id, data);
+			}
+		}
 	}
 }

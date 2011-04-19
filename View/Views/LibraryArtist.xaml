@@ -26,7 +26,7 @@
 		<DockPanel.Background>
 			<VisualBrush Visual="{DynamicResource img}" AlignmentX="Left" AlignmentY="Center" Stretch="Uniform" />
 		</DockPanel.Background>
-		<Image x:Name="ArtistImage" Width="126" Height="126" DockPanel.Dock="Top" Margin="0,15,0,0">
+		<Image x:Name="ArtistImage" Width="126" Height="126" DockPanel.Dock="Top" Margin="0,15,0,0" Source="/View;component/Assets/unknown_item.png">
 			<Image.Effect>
 				<DropShadowEffect Color="#FFC6C6C6" Direction="0" ShadowDepth="0" BlurRadius="15" Opacity="0.7"/>
 			</Image.Effect>

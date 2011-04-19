@@ -34,7 +34,8 @@ namespace View.Views
 
 		private void UserControlMouseUp(object sender, MouseButtonEventArgs e)
 		{
-			SirenController.GetInstance().ShowArtist(Artist);
+			if (e.LeftButton == MouseButtonState.Released)
+				SirenController.GetInstance().ShowArtist(Artist);
 		}
 
 		#region ILibraryArtistControl Implementation

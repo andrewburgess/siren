@@ -3,7 +3,7 @@
 	mc:Ignorable="d"
 	d:DesignWidth="640" d:DesignHeight="480" Loaded="LibraryControlLoaded">
 
-	<ScrollViewer x:Name="LayoutRoot" ScrollViewer.CanContentScroll="True">
-		<WrapPanel x:Name="LibraryPanel"/>
+	<ScrollViewer x:Name="LayoutRoot" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+		<WrapPanel x:Name="LibraryPanel" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 	</ScrollViewer>
 </UserControl>

@@ -1,0 +1,47 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="View.Views.ArtistDetailControl"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480" Loaded="ArtistDetailLoaded">
+
+	<ScrollViewer x:Name="LayoutRoot" ScrollViewer.VerticalScrollBarVisibility="Auto">
+		<DockPanel LastChildFill="False">
+			<Button x:Name="BackButton" Content="Back" Width="75" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="5,5,0,0" Foreground="#FFF7F7F7" FontWeight="Bold" Click="BackButtonClick">
+				<Button.Effect>
+					<DropShadowEffect ShadowDepth="3" BlurRadius="10"/>
+				</Button.Effect>
+				<Button.Background>
+					<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+						<GradientStop Color="#FF858585" Offset="0.5"/>
+						<GradientStop Color="#FF393939" Offset="1"/>
+						<GradientStop Color="#FFA1A1A1" Offset="0.006"/>
+					</LinearGradientBrush>
+				</Button.Background>
+			</Button>
+			<Label x:Name="ArtistName" Content="" DockPanel.Dock="Top" FontSize="26.667" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="#FFF7F7F7" Margin="0,10,0,0">
+				<Label.Effect>
+					<DropShadowEffect ShadowDepth="3"/>
+				</Label.Effect>
+			</Label>
+			<ScrollViewer Height="150" DockPanel.Dock="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="10" BorderThickness="5,10">
+				<ScrollViewer.Effect>
+					<DropShadowEffect ShadowDepth="3" BlurRadius="10"/>
+				</ScrollViewer.Effect>
+				<ScrollViewer.Background>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#FF333333"/>
+						<GradientStop Color="#FF393939" Offset="1"/>
+						<GradientStop Color="#FF414141" Offset="0.5"/>
+					</LinearGradientBrush>
+				</ScrollViewer.Background>
+				<DockPanel x:Name="ImagePanel" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Center" Height="150" Margin="0"/>
+			</ScrollViewer>
+			<StackPanel x:Name="Albums" DockPanel.Dock="Top" Margin="10"/>
+			<TextBlock x:Name="ArtistDescription" TextWrapping="Wrap" Foreground="#FFF7F7F7" Padding="10,5" Margin="10" DockPanel.Dock="Top"/>
+		</DockPanel>
+	</ScrollViewer>
+</UserControl>

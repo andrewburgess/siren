@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlbumInfo.cs" />
     <Compile Include="API.cs" />
     <Compile Include="ArtistImages.cs" />
     <Compile Include="ArtistInfo.cs" />

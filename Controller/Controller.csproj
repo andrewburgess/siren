@@ -50,17 +50,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Controls\AlbumController.cs" />
     <Compile Include="Controls\ArtistDetailController.cs" />
     <Compile Include="Controls\LastFMSettingsController.cs" />
     <Compile Include="Controls\LastFMUpdateDataController.cs" />
     <Compile Include="Controls\LibraryArtistController.cs" />
     <Compile Include="Controls\LibraryControlController.cs" />
     <Compile Include="Controls\LibraryLocationController.cs" />
+    <Compile Include="Controls\TrackController.cs" />
+    <Compile Include="Interfaces\Controls\IAlbumControl.cs" />
     <Compile Include="Interfaces\Controls\IArtistDetailControl.cs" />
     <Compile Include="Interfaces\Controls\ILastFMSettingsControl.cs" />
     <Compile Include="Interfaces\Controls\ILibraryArtistControl.cs" />
     <Compile Include="Interfaces\Controls\ILibraryControl.cs" />
     <Compile Include="Interfaces\Controls\ILibraryLocationControl.cs" />
+    <Compile Include="Interfaces\Controls\ITrackControl.cs" />
     <Compile Include="Interfaces\ILibraryManagerView.cs" />
     <Compile Include="Interfaces\IMainWindowView.cs" />
     <Compile Include="Interfaces\IRepositoryScannerWindow.cs" />

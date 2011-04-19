@@ -7,5 +7,6 @@ namespace Controller.Interfaces.Controls
 	{
 		Artist Artist { get; }
 		void SetImages(IQueryable<Image> images);
+		void SetAlbums(IQueryable<Album> albums);
 	}
 }

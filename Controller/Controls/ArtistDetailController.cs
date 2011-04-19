@@ -25,6 +25,12 @@ namespace Controller.Controls
 			             select i;
 
 			View.SetImages(images);
+
+			var albums = from a in Repository.Albums
+			             where a.ArtistId == View.Artist.Id
+						 orderby a.ReleaseDate
+			             select a;
+			View.SetAlbums(albums);
 		}
 	}
 }

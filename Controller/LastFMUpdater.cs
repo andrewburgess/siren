@@ -18,7 +18,8 @@ namespace Controller
 		All,
 		UserPlays,
 		ArtistInfo,
-		ArtistImages
+		ArtistImages,
+		AlbumArt
 	}
 
 	public class LastFMUpdater : BackgroundWorker
@@ -41,6 +42,9 @@ namespace Controller
 				case LastFMUpdates.ArtistImages:
 					DoWork += UpdateArtistImages;
 					break;
+				case LastFMUpdates.AlbumArt:
+					DoWork += UpdateAlbumArt;
+					break;
 			}
 		}
 
@@ -52,6 +56,7 @@ namespace Controller
 			tasks.Add(factory.StartNew(UpdateArtistInfo));
 			tasks.Add(factory.StartNew(UpdateUserPlays));
 			tasks.Add(factory.StartNew(UpdateArtistImages));
+			tasks.Add(factory.StartNew(UpdateAlbumArt));
 
 			factory.ContinueWhenAll(tasks.ToArray(), delegate(Task[] t) { finished = true; });
 
@@ -189,6 +194,86 @@ namespace Controller
 			ReportProgress(100, null);
 		}
 
+		private void UpdateAlbumArt()
+		{
+			UpdateAlbumArt(null, null);
+		}
+
+		private void UpdateAlbumArt(object sender, DoWorkEventArgs args)
+		{
+			var toUpdate = new List<Album>();
+			using (var repo = DataAccessContext.GetRepository())
+			{
+				var albums = repo.Albums.Select(x => x);
+				toUpdate.AddRange(albums.Where(a => repo.Images.Count(x => x.LinkedId == a.Id) == 0));
+			}
+
+			Parallel.ForEach(toUpdate, new ParallelOptions {MaxDegreeOfParallelism = 4},
+			                 (album) =>
+			                 	{
+									using (var repo = DataAccessContext.GetRepository())
+									{
+										var artistName = repo.Artists.Where(x => x.Id == album.ArtistId).First().Name;
+										var image =
+											API.Album.GetInfo(album.Id, artistName, album.Name).Images[ImageSize.ExtraLarge];
+										if (image.Length == 0)
+											return;
+										var client = new WebClient();
+										var bytes = client.DownloadData(image);
+										Binary imgData;
+										BitmapImage bitmap;
+										int height;
+										int width;
+										try
+										{
+											bitmap = ImageUtilities.ImageFromBuffer(bytes);
+											height = (int) bitmap.Height;
+											width = (int) bitmap.Width;
+											imgData = new Binary(bytes);
+										}
+										catch (Exception e)
+										{
+											try
+											{
+												bitmap = ImageUtilities.ImageFromGDIPlus(bytes);
+												height = (int) bitmap.Height;
+												width = (int) bitmap.Width;
+
+												var b = ImageUtilities.BufferFromImage(bitmap);
+
+												//var fs = File.OpenRead(@"C:\Temp\" + guid + ".bmp");
+												//var b = new byte[fs.Length];
+												//fs.Read(b, 0, (int) fs.Length);
+												//fs.Close();
+
+												imgData = new Binary(b);
+											}
+											catch (Exception e1)
+											{
+												return;
+											}
+										}
+
+
+										var img = new Image
+										          	{
+										          		Id = Guid.NewGuid(),
+										          		Size = (int) ImageSize.ExtraLarge,
+										          		Height = height,
+										          		Width = width,
+										          		ImageData = imgData,
+										          		Url = image,
+										          		LinkedId = album.Id
+										          	};
+
+										repo.Images.InsertOnSubmit(img);
+										repo.SubmitChanges();
+									}
+
+			                 		ReportProgress(100, album);
+			                 	}
+				);
+		}
 
 		private void UpdateArtistImages()
 		{
